@@ -25,6 +25,34 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
 
 ### SWAT-Amazon parameters for Water Routing
 `SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini et al. (2025)
+
+
+Table 1: Parameters that can be calibrated in the new routing modules of SWAT-Amazon
+
+### Parameter Description Table
+
+| Variable name | Unit         | Routing module | Definition                                                                                 | Input file |
+|---------------|--------------|----------------|--------------------------------------------------------------------------------------------|------------|
+| `h_f`         | (m)          | Water          | Water height that triggers the floodplain activation                                       | `.rte`     |
+| `B`           | (m)          |                | Width of the rectangular main channel                                                      | `.rte`     |
+| `S_b`         | (–)          |                | Channel bed slope, calculated from the MERIT DEM with QWAT                                 | `.rte`     |
+| `k_fp`        | (–)          |                | Coefficient to determine the floodplain width: *W_fp = k_fp × B* (rectangular cross-section) | `.rte`     |
+| `θ_fp`        | (rad)        |                | Angle of the floodplain riverward slope (triangular cross-section)                         | `.rte`     |
+| `n`           | (s·m⁻¹ᐟ³)     |                | Manning coefficient                                                                        | `.rte`     |
+| `C_nfp`       | (–)          |                | Coefficient for increasing flow resistance in the main channel when floodplain is active   | `.rte`     |
+| `h_ch`        | (m)          |                | Water height that ends the additional bed roughness influence                              | `.rte`     |
+| `C_nch`       | (–)          |                | Coefficient for increasing flow resistance in the main channel at low waters               | `.rte`     |
+
+
+
+
+
+
+
+
+
+
+
 | Number | Water routing method (no_rte) | Boundary condition requirement | Parameters |
 | --- | --- | --- | --- |
 | 0 | SWAT+ routing | No | None |
