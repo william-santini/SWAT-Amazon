@@ -1,5 +1,4 @@
 # SWAT-Amazon
-## Table of content
 * [Introduction](#Introduction)
 * [Installation](#Installation)
 * [Getting started](#Getting-started)
@@ -7,9 +6,9 @@
 * [Contact](#Contact)
 
 ## Introduction
-`SWAT-Amazon` is a modified version of the [SWAT2012](https://swat.tamu.edu/) model, aiming to enhance water and sediment routing for large basins (such as the Amazon basin). This version is handled from a simple R Notebook based on the [SWATRunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
+`SWAT-Amazon` is a tailored version of the [SWAT2012](https://swat.tamu.edu/) model, aiming to enhance water and sediment routing for the Amazon Basin or other large Basin. 
+It includes a modified Fortran version of the SWAT2012 standart model (SWAT-Amazon.exe) and a R-Notebook for running the modified model, explore simulations, export interactive displays, perform model calibration and sensitivity analysis. This R Notebook uses the [SWATRunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
-The `SWAT-Amazon` package is divided into two parts : The modified Fortran program of the SWAT2012 model (SWAT-Amazon.exe) and the R notebook (SWAT_analysis) which is a tool to link SWAT projets with your modeling workflows in R.
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
@@ -272,7 +271,7 @@ Other simple ways to plot your data are shown on the [SWATplusR](https://chrissc
 
 ## Calibration
 ### Input parameters
-`SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini & al.
+`SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini et al. (2025)
 | Number | Water routing method (no_rte) | Boundary condition requirement | Parameters |
 | --- | --- | --- | --- |
 | 0 | SWAT+ routing | No | None |
