@@ -46,27 +46,7 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
 
 > **Note:** The file `How_to_generate_inputs_files.TXT` provides instructions on how to create or modify the supplementary files listed above.
 
-
-### Organize properly your folder
-
 ### Project Folder Structure
-
-- `your_project/`
-  - `txtInOut/`
-    - `SWAT-Amazon.exe`
-    - `Qss_forcing.PRN`
-    - `Qsf_forcing.PRN`
-    - `hdwnstrm.TXT`
-    - _... other standard SWAT2012 input/output files_
-  - `SWAT-Amazon-Calib.Rmd`
-  - `tools_and_functions_global.R`
-  - `setpar_test.R`
-  - `setpar_bestcal.R`
-  - `setpar_paral_tibble.R`
-  - `setpar_sen.R`
-
-
-### Organize properly your folder
 
 your_project/  
 ├── txtInOut/  
