@@ -1,5 +1,5 @@
 # SWAT-Amazon
-* [Brief Introduction to the New Modules for Water and Sediment Routing](#Brief-Introduction-to-the-New-Modules-for-Water-and-Sediment-Routing)
+* [New Modules for Water and Sediment Routing](#Overview-of-New-Modules-for-Water-and-Sediment-Routing)
 * [Installation](#Installation)
 * [Getting started](#Getting-started)
 * [Calibration](#Calibration)
@@ -11,9 +11,9 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
-## Brief Introduction to the New Modules for Water and Sediment Routing
+## Overview of the New Water and Sediment Routing Modules in SWAT-Amazon
 
-In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQROUTING` parameter in the `.BSN` file using the R Notebook `SWAT-Amazon-Calib`. **Five** routing methods are currently available:
+SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `SWAT-Amazon-Calib`. A total of **five** routing options are available:
 
 **Table 1:** Water Routing Methods in SWAT-Amazon
 
