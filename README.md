@@ -1,5 +1,5 @@
 # SWAT-Amazon
-* [Brief Introduction to the New Modules for Water and Sediment Routing](#Brief Introduction to the New Modules for Water and Sediment Routing)
+* [Brief Introduction to the New Modules for Water and Sediment Routing](#Brief-Introduction-to-the-New-Modules-for-Water-and-Sediment-Routing)
 * [Installation](#Installation)
 * [Getting started](#Getting-started)
 * [Calibration](#Calibration)
