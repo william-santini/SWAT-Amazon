@@ -28,7 +28,7 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 | 4         | Diffusive wave (New. Cf. Santini et al., 2025)           | **Yes**                       |
 
 
-> **Note:** In the Muskingum with K variable method the parameter K is a function of the water level. In particular, this method allows to increase the lag time of the flood wave propagation (and the water volume stored in the conceptual reservoir) when the floodplain is active.
+> **Note:** In the Muskingum with K variable method the parameter K is a function of the water level. In particular, this method allows to increase the lag time of the flood wave propagation (and the water volume stored in the conceptual reservoir) when the floodplain is active.  
 > For both hydraulic methods, a floodplain reservoir can be parametrized in order to propagate the flood wave with attenuation. The user has the choice between two floodplain geometries: First, a reservoir with a rectangular cross-section, and secondly a reservoir with a triangular cross-section.
 
 
