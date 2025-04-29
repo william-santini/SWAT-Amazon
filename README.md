@@ -25,7 +25,7 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 | 1         | Muskingum method (Default SWAT method)                   | No                            |
 | 2         | Muskingum with K variable method (New. Cf. Santini 2020) | No                            |
 | 3         | Kinematic wave (New. Cf. Santini et al., 2025)           | No                            |
-| 4         | Diffusive wave (New. Cf. Santini et al., 2025)           | **Yes**                       |
+| 4         | Diffusive wave (New. Cf. Santini et al., 2025)           | **Yes:** use `hdwnstrm.TXT`   |
 
 
 > **Note:** In the Muskingum with K variable method the parameter K is a function of the water level. In particular, this method allows to increase the lag time of the flood wave propagation (and the water volume stored in the conceptual reservoir) when the floodplain is active.  
