@@ -27,11 +27,14 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 | 4           | Diffusive wave method *(New; see Santini et al., 2025)* | **Yes**: requires `hdwnstrm.TXT` file  |
 
 > **Note:**  
-> In the *Muskingum with variable K* method, the parameter `K` is a function of the water level. This allows the model to dynamically increase the lag time of flood wave propagation—and consequently the water volume stored—when the floodplain becomes active.  
+> In the *Muskingum with variable K* method, the parameter `K` varies with the water level. This allows the model to dynamically increase the lag time of flood wave propagation—and consequently, the volume of water stored—when the floodplain becomes active.  
 >  
-> For the hydraulic wave methods (Kinematic and Diffusive), a conceptual **floodplain reservoir** can be activated to simulate flood attenuation. Two floodplain geometries are available:  
-> - A **rectangular cross-section** defined by a width coefficient `k_fp`;  
-> - A **triangular cross-section** defined by a slope angle `θ_fp`.
+> For the hydraulic wave methods (*Kinematic* and *Diffusive*), a conceptual **floodplain reservoir** can be activated to simulate flood wave attenuation. Two floodplain geometries are available:  
+> - A **rectangular cross-section**, defined by the width coefficient `KFP`;  
+> - A **triangular cross-section**, defined by the slope angle `THETA_FP`.  
+> The parameter `FPGEOM` controls the geometry:  
+> - `FPGEOM = 0`: rectangular floodplain;  
+> - `FPGEOM = 1`: triangular floodplain.
 
 **The sand and fine sediment routing method cannot be changed: `SWAT-Amazon` exclusively uses the new sediment routing modules developed for this version. The default SWAT sediment routing method is not available due to extensive modifications to the original code.**
 
