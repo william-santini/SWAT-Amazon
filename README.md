@@ -7,7 +7,7 @@
 
 ## Introduction
 `SWAT-Amazon`  is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
-This modeling framework consists of a **Fortran-based executable** (SWAT-Amazon.exe), derived from the standard SWAT2012 code, and an **R Notebook** designed to support the entire modeling workflow. 
+This modeling framework consists of a **Fortran-based executable** (SWAT-Amazon.exe), derived from the standard SWAT2012 code, and an **R Notebook** (SWAT-Amazon-Calib.Rmd) designed to support the entire modeling workflow. 
 This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures, with the [SWATRunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
@@ -35,7 +35,6 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 
 **The sand and fine sediment routing method cannot be changed: `SWAT-Amazon` exclusively uses the new sediment routing modules developed for this version. The default SWAT sediment routing method is not available due to extensive modifications to the original code.**
 
-
 ### Parameter Description Table
 
 **Table 2:** Parameters that can be calibrated in the new routing modules of SWAT-Amazon according to [Santini et al. (2025)](#)
@@ -62,10 +61,6 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 | `η`           | (–)          | Sand           | Correction exponent for transport capacity when the floodplain is active                                       | `.rte`     |
 
 
-
-
-
-
 ## Download and Installation
 
 ### Downloads
@@ -85,14 +80,14 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 
 - **Supplementary files**  
   Download the required additional files to ensure proper execution of the model:
-  - `Template_Station_SWAT.xlsx` — Observation file to be placed in the same directory as the Notebook.
+  - `Template_Station_SWAT.xlsx` — Observation file to be placed in the same directory as the Notebook `SWAT-Amazon-Calib.Rmd`.
   - `Qss_forcing.PRN` — Input file to force **Suspended Sand load** in reaches, if needed (to be placed in `TxtInOut`).
   - `Qsf_forcing.PRN` — Input file to force **Suspended Fine load** in reaches, if needed (to be placed in `TxtInOut`).
   - `hdwnstrm.TXT` — File containing **boundary water levels** for simulations using the Diffusive Wave option (to be placed in `TxtInOut`).
 
 > **Note:** The file `How_to_generate_inputs_files.TXT` provides instructions on how to create or modify the supplementary files listed above.
 
-### Structre your Project Folder
+### Structure your Project Folder
 
 your_project/  
 ├── txtInOut/  
@@ -109,9 +104,9 @@ your_project/
 └── setpar_sen.R   
 
 
-### Install `SWATRunR` and learn how to use the package
+### Install `SWATRunR`
 
-The final step is to install the [`SWATRunR`](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package in your R environment. This package enables interaction with the SWAT-Amazon executable directly from R.
+The final step is to install the [`SWATrunR`](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package in your R environment. This package enables interaction with the SWAT-Amazon executable directly from R.
 
 To install it, open your R IDE (e.g., RStudio) and run the following command:
 
@@ -120,6 +115,7 @@ To install it, open your R IDE (e.g., RStudio) and run the following command:
 install.packages("remotes")
 remotes::install_github("chrisschuerz/SWATrunR")
 ```
+**It is highly recommended to learn the basics of the `SWATrunR` package before starting with `SWAT-Amazon`.**
 
 ## Getting Started
 
