@@ -12,6 +12,7 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
+## SWAT-Amazon 
 The `SWAT-Amazon` provides the same functionalities as the standart SWAT2012 model but adds new modules regarding water and sediment routing.
 - Two hydraulic routing (1d) were also implemented:
   - The kinematic wave approximation of the shallow water equations
@@ -19,6 +20,43 @@ The `SWAT-Amazon` provides the same functionalities as the standart SWAT2012 mod
 - A modified version of the SWAT Muskingum routing method was implemented. In this version, the parameter K is a function of the water level. In particular, this method allows to increase the lag time of the flood wave propagation (and the water volume stored in the conceptual reservoir) when the floodplain is active.
 
 For both hydraulic methods, a floodplain reservoir can be parametrized in order to propagate the flood wave with attenuation. The user has the choice between two floodplain geometries: First, a reservoir with a rectangular cross-section, and secondly a reservoir with a triangular cross-section.
+
+
+
+### SWAT-Amazon parameters for Water Routing
+`SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini et al. (2025)
+| Number | Water routing method (no_rte) | Boundary condition requirement | Parameters |
+| --- | --- | --- | --- |
+| 0 | SWAT+ routing | No | None |
+| 1 | Kinematic | No | None |
+| 2 | Diffusive | Yes | None |
+
+Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR). So here we are using the same trick to chose the water routing algorithm.
+```r
+par_single = c("no_rte.bsn|change = abschg" = 1)
+```
+| Parameter | Range | Description |
+| --- | --- | --- |
+| no_rte.bsn | 0.0:3.0 | Water routing method |
+| fpgeom.bsn | 0.0:1.0 | Type of floodplain 0 is squared, 1 triangular |
+| theta_fp.bsn | 0.0:10.0 | Floodplain angle (Case of a tri. section) [rad] |
+| alpha_f.bsn | 0.0:10.0 | 0.2 < alpha < 0.7 (Bates et al., 2010) |
+| cnfp.bsn | 0.0:10.0 |  |
+
+
+### SWAT-Amazon parameters for Suspended Sand Routing
+
+
+
+
+
+### SWAT-Amazon parameters for Suspended Fine Sediment Routing
+
+
+
+
+
+
 
 ## Download and Installation
 
@@ -126,28 +164,9 @@ This can be done automatically using the code chunk `{r Adding new parameters in
 
 
 ## Calibration
-### Input parameters
-`SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini et al. (2025)
-| Number | Water routing method (no_rte) | Boundary condition requirement | Parameters |
-| --- | --- | --- | --- |
-| 0 | SWAT+ routing | No | None |
-| 1 | Kinematic | No | None |
-| 2 | Diffusive | Yes | None |
-
-Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR). So here we are using the same trick to chose the water routing algorithm.
-```r
-par_single = c("no_rte.bsn|change = abschg" = 1)
-```
-| Parameter | Range | Description |
-| --- | --- | --- |
-| no_rte.bsn | 0.0:3.0 | Water routing method |
-| fpgeom.bsn | 0.0:1.0 | Type of floodplain 0 is squared, 1 triangular |
-| theta_fp.bsn | 0.0:10.0 | Floodplain angle (Case of a tri. section) [rad] |
-| alpha_f.bsn | 0.0:10.0 | 0.2 < alpha < 0.7 (Bates et al., 2010) |
-| cnfp.bsn | 0.0:10.0 |  |
 
 
-A lot of parameters can already be changed for calibration on the [SWAT+](https://swatplus.gitbook.io/docs/user/editor/inputs/change-calibration) model but the website is not yet updated. You can go and check the cal_parm.cal file in the TxtInOut folder to see the list of available parameters.
+
 
 ### Input files
 A new feature from `SWATplusHybam` is the ability to handle observed data, in order to use them as limit conditions or to do data assimilation for example. This observed data has to come as a .txt file and has it's type has to be specified in the functions Below.
