@@ -36,7 +36,11 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
   - performing model calibration and sensitivity analysis.
 
 - **Supplementary files**  
-  Download the required additional files to reproduce the examples and ensure proper execution of the model.
+  Download the required additional files to ensure proper execution of the model:
+  - Template_Station_SWAT.xlsx --> Files with observations (to be placed with your Notebook)
+  - Qss_forcing.PRN --> File to force Suspended Sand load in reachs if needed (to be placed in the *TxtInOut*)
+  - Qsf_forcing.PRN --> File to force Suspended Fine load in reachs if needed (to be placed in the *TxtInOut*)
+  - hdwnstrm.TXT --> File containing the water levels of the boundary condition if the Diffusive wave is used (to be placed in the *TxtInOut*)
 
 
 ### Install SWATRunR
