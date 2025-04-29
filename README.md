@@ -59,16 +59,24 @@ remotes::install_github("chrisschuerz/SWATrunR")
 
 ## Getting started
 
-### Load the demo
-- Download the whole Git Hub repository
-  
-This demo project is based on the Ucayali basin.
-<img src="img/Ucayali.png" title="Ucayali basin" alt="plot" width="100%" style="display: block; margin: auto;" />
+### Load the demo or use your own project
+You can download the demo project here.
 
+### Set the general parameters in the corresponding chunk:
 
+```{r General parameters}
+# Setting the Working Directory
+setwd("D:/your_working_directory")
+# Loading the Notebook's functions
+source("tools_and_functions_global.R")
+# Loading the SWAT's TxtInOut
+project_path <- "Input/TxtInOut"
 
-### 
+# List of colors for visualizations:
+Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2",
+             "#D55E00", "#CC79A7", "#00AFBB")
 
+```
 
 
 
