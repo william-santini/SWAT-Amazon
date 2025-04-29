@@ -160,7 +160,7 @@ Date_ini <- as.Date("2008-01-01",  format = "%Y-%m-%d")
 Date_fin <- as.Date("2015-12-31",  format = "%Y-%m-%d")
 ```
 
-- Modification of the files BASINS.BSN
+- Modification of the files `BASINS.BSN`
 ```
 bsn_file <- list.files(project_path,pattern =".bsn",full.names=TRUE)
 modif_par_bsn(bsn_file,"IPET", 2)
@@ -169,10 +169,13 @@ modif_par_bsn(bsn_file,"BCFACTOR", 1)
 
 ```
 
-- Routing headwaters or not: FILE.CIO
+- Routing headwaters or not: `FILE.CIO`
 ```
-
-
+# Function to be written... manually changed in the FILE.CIO file
+# By default, headwaters are not routed in SWAT2012
+# I_SUBW = 0 : Default value: Headwaters are not routed (and it is not possible to force the Qss and Qsf)
+# I_SUBW = 1 : Headwaters are routed (and Qss or Qsf are forced if required in the routing module)
+# NB: Qss and Qsf forcing is achieved through the Qss_forcing.prn or Qsf_forcing.prn input files
 ```
 
 - Settings outputs
