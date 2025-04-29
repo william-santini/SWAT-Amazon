@@ -46,7 +46,7 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
 
 > **Note:** The file `How_to_generate_inputs_files.TXT` provides instructions on how to create or modify the supplementary files listed above.
 
-### Project Folder Structure
+### Structre your Project Folder
 
 your_project/  
 ├── txtInOut/  
@@ -75,11 +75,12 @@ install.packages("remotes")
 remotes::install_github("chrisschuerz/SWATrunR")
 ```
 
-## Getting started
+## Getting Started
 
-### Load the demo or use your own project
-You can download the demo project here.
+### Load the demo or use your own SWAT project
 
+You can download the demo project [here](#) or use the `txtInOut` folder from your own SWAT project.
+ 
 ### Set the general parameters
 The working directory and SWAT project path 
 
@@ -96,7 +97,7 @@ Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2","
 
 ```
 
-### Add new SWAT-Amazon parameters to the `TxtInOut` files
+### Add Sew `SWAT-Amazon` Parameters to the `TxtInOut` files
 
 Since SWAT-Amazon introduces additional parameters, it is necessary to add them to the `.RTE` and `.BSN` files within the `TxtInOut` directory of your SWAT project.  
 This can be done automatically using the code chunk `{r Adding new parameters in TxtInOut files}` provided in the Notebook.
@@ -119,47 +120,10 @@ This can be done automatically using the code chunk `{r Adding new parameters in
 
 
 
-### Perform your first model
-In order to use the SWATplusHybam model you need to set up your project through QGIS with the QSWAT+ plugin. You can find great video tutorials on the [SWAT+](https://swat.tamu.edu/software/plus/) website. Then initialize weather data and modify parameters if needed, you can go back to this step at any time if you want. The import point is the step "write input files" as once it's done you can close QGIS and SWATplusEditor they will not be needed for running the model and analyze data. You can go through the step "Run SWAT+" on SWATplusEditor but it's not going to run the new model `SWATplusHybam`.
 
-If you went successfully through the set up you can now go on the R notebook `SWAT_analysis` and try to perform a first run. There are no currently demo data, you will have to use one of your QSWAT+ project.
-
-```r
-# Load your libraries
-library(SWATplusR)
-source("tools_and_functions.R")
-
-# Put the path to your TxtInOut file here
-project_path <- "your_path/your_project/Scenarios/Default/TxtInOut"
-setup_new_ch_parm(project_path)
-```
-
-```r
-q_sim_day <- run_swatplus(project_path = project_path,
-                         output = define_output(file = "channel_sd",
-                                                 variable = "flo_out",
-                                                 unit = 1))
-```
-
-[SWATplusR](https://github.com/chrisschuerz/SWATplusR)
 
 ### Analyze the model output
-The following code is a simple plot example you can do with the functions included in the SWAT_analysis package.
-```r
-start_date = '2002-01-01'
-end_date = '2014-07-31'
-title = 'Lagarto'
 
-# Always start with observed or your reference data!
-simulations = list(q_obs, sim_csv, sim_month)
-simulation_names = list("q_obs", "sim1", "sim1_monthly_average")
-
-# Function to plot easily multiple figures of a same format
-plot_results(simulations, simulation_names, start_date, end_date, title)
-```
-<img src="img/Result.png" title="plot" alt="plot" width="60%" style="display: block; margin: auto;" />
-
-Other simple ways to plot your data are shown on the [SWATplusR](https://chrisschuerz.github.io/SWATplusR/articles/04_vis_example.html) Git page.
 
 ## Calibration
 ### Input parameters
