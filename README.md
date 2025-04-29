@@ -13,11 +13,9 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
 ## New Modules for Water and Sediment Routing
-`SWAT-Amazon` provides the same functionalities as the standart SWAT2012 model but adds new modules:
-- Two hydraulic routing modules (1d)
+In `SWAT-Amazon`, the water routing method can be selected by modifying the parameter EQROUTING in the .BSN file through the R-Notebook `SWAT-Amazon-Calib`. Four method are availables:
 
-
-**Table 1:** Changing the Routing Method (parameter EQROUTING in .BSN file)
+**Table 1:** Water Routing Method in SWAT-Amazon
 
 | EQROUTING |  Water routing method (no_rte)                           | Boundary condition requirement|
 |-----------|----------------------------------------------------------|-------------------------------|
