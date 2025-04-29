@@ -6,11 +6,9 @@
 * [Contact](#Contact)
 
 ## Introduction
-`SWAT-Amazon` is a tailored version of the [SWAT2012](https://swat.tamu.edu/) model, specifically designed to improve water and sediment routing in the Amazon Basin and other large-scale basins [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]()
-It includes a modified Fortran version of the SWAT2012 standart model (SWAT-Amazon.exe) and a R-Notebook for running the modified model, explore simulations, export interactive displays, perform model calibration and sensitivity analysis. This R Notebook uses the [SWATRunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
-
-
-
+`SWAT-Amazon`  is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
+This modeling frameworkconsists of **a modified Fortran-based executable** (SWAT-Amazon.exe), derived from the standard SWAT2012 code, and **an R Notebook** designed to support the entire modeling workflow. 
+This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures with the SWATRunR package [SWATRunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
