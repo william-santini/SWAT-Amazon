@@ -12,11 +12,11 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
-The `SWATplusHybam` provides the same functionalities as the SWAT+ model but adds new methods regarding water and sediment routing, as well as flexibility on the input parameters.
-- A modified version of the SWAT Muskingum routing method was implemented. In this version, the parameter K is a function of the water level. In particular, this method allows to increase the lag time of the flood wave propagation (and the water volume stored in the conceptual reservoir) when the floodplain is active.
+The `SWAT-Amazon` provides the same functionalities as the standart SWAT2012 model but adds new modules regarding water and sediment routing.
 - Two hydraulic routing (1d) were also implemented:
   - The kinematic wave approximation of the shallow water equations
   - The diffusive wave approximation
+- A modified version of the SWAT Muskingum routing method was implemented. In this version, the parameter K is a function of the water level. In particular, this method allows to increase the lag time of the flood wave propagation (and the water volume stored in the conceptual reservoir) when the floodplain is active.
 
 For both hydraulic methods, a floodplain reservoir can be parametrized in order to propagate the flood wave with attenuation. The user has the choice between two floodplain geometries: First, a reservoir with a rectangular cross-section, and secondly a reservoir with a triangular cross-section.
 
@@ -63,17 +63,6 @@ your_project/
 └── setpar_sen.R   
 
 
-
-
-
-
-
-
-
-
-
-
-
 ### Install `SWATRunR` and learn how to use the package
 
 The final step is to install the [`SWATRunR`](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package in your R environment. This package enables interaction with the SWAT-Amazon executable directly from R.
@@ -91,7 +80,8 @@ remotes::install_github("chrisschuerz/SWATrunR")
 ### Load the demo or use your own project
 You can download the demo project here.
 
-### Set the general parameters in the corresponding chunk
+### Set the general parameters
+The working directory and SWAT project path 
 
 ```{r General parameters}
 # Setting the Working Directory
@@ -102,8 +92,7 @@ source("tools_and_functions_global.R")
 project_path <- "Input/TxtInOut"
 
 # List of colors for visualizations:
-Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2",
-             "#D55E00", "#CC79A7", "#00AFBB")
+Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2","#D55E00", "#CC79A7", "#00AFBB")
 
 ```
 
