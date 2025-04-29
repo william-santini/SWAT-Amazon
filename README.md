@@ -36,10 +36,6 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 **The sand and fine sediment routing method cannot be changed: `SWAT-Amazon` exclusively uses the new sediment routing modules developed for this version. The default SWAT sediment routing method is not available due to extensive modifications to the original code.**
 
 
-
-
-
-
 ### Parameter Description Table
 
 **Table 2:** Parameters that can be calibrated in the new routing modules of SWAT-Amazon according to [Santini et al. (2025)](#)
@@ -58,42 +54,12 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 | `d_s`         | (m)          | Sand           | Arithmetic mean diameter of suspended sands                                                                    | `.rte`     |
 | `d_b`         | (m)          | Sand           | Arithmetic mean diameter of riverbed sands                                                                     | `.rte`     |
 | `s`           | (–)          | Sand           | Relative sand density. *s = 2.65* was used in this study                                                       | `.rte`     |
-| `β_s`         | (–)          | Sand           | Ratio of suspended sand to eddy diffusivity, imposed or calculated using Santini et al. (2019) (Eq. 14)        | `.rte`     |
+| `β_s`         | (–)          | Sand           | Ratio of suspended sand to eddy diffusivity, imposed or calculated using Santini et al. (2019)                 | `.rte`     |
 | `ν`           | (m²·s⁻¹)     | Sand           | Kinematic water viscosity. Value corresponds to 28 °C                                                          | `.rte`     |
 | `σ`           | (–)          | Sand           | Coefficient to determine *k_s′*: *k_s′ = σ × d_b*                                                              | `.rte`     |
 | `K_(bed)`     | (–)          | Sand           | Main channel susceptibility to erosion (riverbed only), value between 0 and 1                                  | `.rte`     |
 | `C_bk`        | (t·m⁻³)      | Sand           | Concentration of bank and bar inputs (constant)                                                                | `.rte`     |
-| `η`           | (–)          | Sand           | Correction exponent for transport capacity when the floodplain is active (see Eq. 38)                          | `.rte`     |
-
-
-
-| Number | Water routing method (no_rte) | Boundary condition requirement | Parameters |
-| --- | --- | --- | --- |
-| 0 | SWAT+ routing | No | None |
-| 1 | Kinematic | No | None |
-| 2 | Diffusive | Yes | None |
-
-Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR). So here we are using the same trick to chose the water routing algorithm.
-```r
-par_single = c("no_rte.bsn|change = abschg" = 1)
-```
-| Parameter | Range | Description |
-| --- | --- | --- |
-| no_rte.bsn | 0.0:3.0 | Water routing method |
-| fpgeom.bsn | 0.0:1.0 | Type of floodplain 0 is squared, 1 triangular |
-| theta_fp.bsn | 0.0:10.0 | Floodplain angle (Case of a tri. section) [rad] |
-| alpha_f.bsn | 0.0:10.0 | 0.2 < alpha < 0.7 (Bates et al., 2010) |
-| cnfp.bsn | 0.0:10.0 |  |
-
-
-### SWAT-Amazon parameters for Suspended Sand Routing
-
-
-
-
-
-### SWAT-Amazon parameters for Suspended Fine Sediment Routing
-
+| `η`           | (–)          | Sand           | Correction exponent for transport capacity when the floodplain is active                                       | `.rte`     |
 
 
 
@@ -186,11 +152,15 @@ This can be done automatically using the code chunk `{r Adding new parameters in
 > To prevent accidental modifications or duplication, it is recommended to **comment out the code chunk** after it has been executed successfully.
 
 
-### Load observed data
+### Load Observed Data
 
-### Configure simulation
+### Configure Simulation
 
-### Perform your fisrt run
+### Prepare your Parameter Sets
+Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR). So here we are using the same trick to chose the water routing algorithm.
+
+
+### Perform your Fisrt Run
 
 ### Plot
 
