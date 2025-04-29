@@ -1,11 +1,11 @@
 # SWAT-Amazon
-* [New Modules for Water and Sediment Routing](#Overview-of-New-Modules-for-Water-and-Sediment-Routing)
+* [Overview of the New Water and Sediment Routing Modules in SWAT-Amazon](#Overview-of-the-New-Water-and-Sediment-Routing-Modules-in-SWAT-Amazon)
 * [Installation](#Installation)
 * [Getting started](#Getting-started)
 * [Calibration](#Calibration)
 * [Contact](#Contact)
 
-`SWAT-Amazon`  is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
+`SWAT-Amazon` is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
 This modeling framework consists of a **Fortran-based executable** (SWAT-Amazon.exe), derived from the standard SWAT2012 code, and an **R Notebook** (SWAT-Amazon-Calib.Rmd) designed to support the entire modeling workflow. 
 This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures, with the [SWATrunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
@@ -13,7 +13,7 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 
 ## Overview of the New Water and Sediment Routing Modules in SWAT-Amazon
 
-SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `SWAT-Amazon-Calib`. A total of **five** routing options are available:
+`SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `SWAT-Amazon-Calib`. A total of **five** routing options are available:
 
 **Table 1:** Water Routing Methods in SWAT-Amazon
 
