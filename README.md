@@ -1,5 +1,5 @@
 # SWAT-Amazon
-`SWAT-Amazon` is a modified version of the [SWAT2012](https://swat.tamu.edu/software/plus/) model, aiming to enhance water and sediment routing for large basins (such as the Amazon basin). This version is handled from a simple R Notebook based on the [SWATRunR](https://github.com/chrisschuerz/SWATplusR) package.
+`SWAT-Amazon` is a modified version of the [SWAT2012](https://swat.tamu.edu/) model, aiming to enhance water and sediment routing for large basins (such as the Amazon basin). This version is handled from a simple R Notebook based on the [SWATRunR](https://github.com/chrisschuerz/SWATplusR) package.
 
 ## Table of content
 * [Introduction](#Introduction)
