@@ -30,7 +30,7 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
 
 ### Parameter Description Table
 
-**Table 1:** Parameters that can be calibrated in the new routing modules of SWAT-Amazon
+**Table 1:** Parameters that can be calibrated in the new routing modules of SWAT-Amazon according to [Santini et al. (2025)](#)
 
 | Variable name | Unit         | Routing module | Definition                                                                                                     | Input file |
 |---------------|--------------|----------------|----------------------------------------------------------------------------------------------------------------|------------|
