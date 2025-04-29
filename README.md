@@ -27,11 +27,10 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
 `SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini et al. (2025)
 
 
-Table 1: Parameters that can be calibrated in the new routing modules of SWAT-Amazon
 
 ### Parameter Description Table
 
-### Parameter Description Table
+**Table 1:** Parameters that can be calibrated in the new routing modules of SWAT-Amazon
 
 | Variable name | Unit         | Routing module | Definition                                                                                                     | Input file |
 |---------------|--------------|----------------|----------------------------------------------------------------------------------------------------------------|------------|
