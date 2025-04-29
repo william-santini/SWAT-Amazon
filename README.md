@@ -20,18 +20,26 @@ The `SWATplusHybam` provides the same functionalities as the SWAT+ model but add
 
 For both hydraulic methods, a floodplain reservoir can be parametrized in order to propagate the flood wave with attenuation. The user has the choice between two floodplain geometries: First, a reservoir with a rectangular cross-section, and secondly a reservoir with a triangular cross-section.
 
-These new algorithms regarding water and sediment routing were firstly developed into SWAT 2012 by William Santini (william.santini@ird.fr) and are detailed in his PhD (Santini et al. 2019). Code maintenance and translation (from SWAT2012 to SWAT+) were done by Florent Papini (florent.papini@ird.fr).
+## Download and Installation
 
- The `SWATplusHybam` package also provides a R notebook, SWAT_analysis.rmd, which purpose is to simplify the use of `SWATplusHybam` model by providing functions and tools to initialize and run your project. There are also some functions allowing an easy analysis of results. This notebook is mainly based on the SWATplusR package developed by Christoph Schuerz (christoph.schuerz@boku.ac.at).
+### Download
+- **`SWAT-Amazon.exe` executable**  
+  Download the executable file and place it in your SWAT project working directory:  
+  `your_project/scenarios/Default/TxtInOut/`  
+  *No installation is required.*
 
-## Installation
+- **R Notebook**  
+  Download the R Notebook that provides tools for:
+  - running the SWAT-Amazon model,
+  - exploring simulation outputs,
+  - exporting interactive visualizations,
+  - performing model calibration and sensitivity analysis.
 
-### Install the main package
-Download the right SWATplusHybam repository depending on your OS system (SWATplusHybam_64 for windows 64...). Extract the SWATplus.exe executable and the .dll files in your project working directory (your_project/scenarios/Default/TxtInOut/).
+- **Supplementary files**  
+  Download the required additional files to reproduce the examples and ensure proper execution of the model.
 
-`SWATplusHybam` is meant to be piloted from a R program, so it is highly recommended to download the SWAT_analysis repository containing a R notebook showing the basics to run the model and a R file containing some helpful functions.
 
-### Install SWATplusR
+### Install SWATRunR
 Last thing you need to do is to go on your R IDE and install [SWATplusR](https://github.com/chrisschuerz/SWATplusR)
 ```r
 # If you do not have the package devtools installed
