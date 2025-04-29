@@ -33,10 +33,10 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 > - A **rectangular cross-section** defined by a width coefficient `k_fp`;  
 > - A **triangular cross-section** defined by a slope angle `θ_fp`.
 
+**The sand and fine sediment routing method cannot be changed: `SWAT-Amazon` exclusively uses the new sediment routing modules developed for this version. The default SWAT sediment routing method is not available due to extensive modifications to the original code.**
 
 
-### SWAT-Amazon parameters for Water Routing
-`SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini et al. (2025)
+
 
 
 
