@@ -45,37 +45,38 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
 
 > **Note:** The file `How_to_generate_inputs_files.TXT` provides instructions on how to create or modify the supplementary files listed above.
 
-### Install SWATRunR
-Last thing you need to do is to go on your R IDE and install the [SWATRunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package.
+### Install `SWATRunR` and learn how to use the package
+
+The final step is to install the [`SWATRunR`](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package in your R environment. This package enables interaction with the SWAT-Amazon executable directly from R.
+
+To install it, open your R IDE (e.g., RStudio) and run the following command:
+
+```r
+# If the package remotes is not installed run first:
+install.packages("remotes")
+remotes::install_github("chrisschuerz/SWATrunR")
+```
 
 ## Getting started
 
-### Run the demo
+### Load the demo
 - Download the whole Git Hub repository
-- Download the latest R version and an IDE supporting the R notebook such as Rstudio.
-
-Once you got it all set up you need to download the main libraries that will be used for a simple run. You can open the R notebook SWATplus_analysis.rmd in the SWAT_analysis folder and write in the console the following commands.
-```r
-install.packages("devtools")
-devtools::install_github("chrisschuerz/SWATplusR")
-
-install.packages("readr")
-install.packages("plotly")
-install.packages("hydroGOF")
-```
-
-Now you can load the useful libraries and functions for this example.
-```r
-library(SWATplusR)
-library(readr)
-library(hydroGOF)
-library(plotly)
-
-source("tools_and_functions.R")
-```
-
+  
 This demo project is based on the Ucayali basin.
 <img src="img/Ucayali.png" title="Ucayali basin" alt="plot" width="100%" style="display: block; margin: auto;" />
+
+
+
+### 
+
+
+
+
+
+
+
+
+
 
 Set up the path to your project. Set up the new parameters from SWATplusHybam and hbc.txt (height boundary condition) will be used for the diffusive wave algorithm.
 ```r
