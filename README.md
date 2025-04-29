@@ -31,19 +31,28 @@ Table 1: Parameters that can be calibrated in the new routing modules of SWAT-Am
 
 ### Parameter Description Table
 
-| Variable name | Unit         | Routing module | Definition                                                                                 | Input file |
-|---------------|--------------|----------------|--------------------------------------------------------------------------------------------|------------|
-| `h_f`         | (m)          | Water          | Water height that triggers the floodplain activation                                       | `.rte`     |
-| `B`           | (m)          |                | Width of the rectangular main channel                                                      | `.rte`     |
-| `S_b`         | (–)          |                | Channel bed slope, calculated from the MERIT DEM with QWAT                                 | `.rte`     |
-| `k_fp`        | (–)          |                | Coefficient to determine the floodplain width: *W_fp = k_fp × B* (rectangular cross-section) | `.rte`     |
-| `θ_fp`        | (rad)        |                | Angle of the floodplain riverward slope (triangular cross-section)                         | `.rte`     |
-| `n`           | (s·m⁻¹ᐟ³)     |                | Manning coefficient                                                                        | `.rte`     |
-| `C_nfp`       | (–)          |                | Coefficient for increasing flow resistance in the main channel when floodplain is active   | `.rte`     |
-| `h_ch`        | (m)          |                | Water height that ends the additional bed roughness influence                              | `.rte`     |
-| `C_nch`       | (–)          |                | Coefficient for increasing flow resistance in the main channel at low waters               | `.rte`     |
+### Parameter Description Table
 
-
+| Variable name | Unit         | Routing module | Definition                                                                                                                        | Input file |
+|---------------|--------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------|------------|
+| `h_f`         | (m)          | Water          | Water height that triggers the floodplain activation                                                                              | `.rte`     |
+| `B`           | (m)          |                | Width of the rectangular main channel                                                                                             | `.rte`     |
+| `S_b`         | (–)          |                | Channel bed slope, calculated from the MERIT DEM with QWAT                                                                        | `.rte`     |
+| `k_fp`        | (–)          |                | Coefficient to determine the floodplain width: *W_fp = k_fp × B* (rectangular cross-section)                                      | `.rte`     |
+| `θ_fp`        | (rad)        |                | Angle of the floodplain riverward slope (triangular cross-section)                                                                | `.rte`     |
+| `n`           | (s·m⁻¹ᐟ³)     |                | Manning coefficient                                                                                                               | `.rte`     |
+| `C_nfp`       | (–)          |                | Coefficient for increasing flow resistance in the main channel when the floodplain is active                                      | `.rte`     |
+| `h_ch`        | (m)          |                | Water height that ends the additional bed roughness influence                                                                     | `.rte`     |
+| `C_nch`       | (–)          |                | Coefficient for increasing flow resistance in the main channel during low flows                                                   | `.rte`     |
+| `d_s`         | (m)          | Sand           | Arithmetic mean diameter of suspended sands                                                                                       | `.rte`     |
+| `d_b`         | (m)          |                | Arithmetic mean diameter of riverbed sands                                                                                        | `.rte`     |
+| `s`           | (–)          |                | Relative sand density. *s = 2.65* was used in this study                                                                           | `.rte`     |
+| `β_s`         | (–)          |                | Ratio of suspended sand to eddy diffusivity, imposed or calculated using Santini et al. (2019) (Eq. 14)                           | `.rte`     |
+| `ν`           | (m²·s⁻¹)      |                | Kinematic water viscosity. Value corresponds to 28 °C                                                                             | `.rte`     |
+| `σ`           | (–)          |                | Coefficient to determine *k_s′*: *k_s′ = σ × d_b*                                                                                 | `.rte`     |
+| `K_(bed)`     | (–)          |                | Main channel susceptibility to erosion (riverbed only), value between 0 and 1                                                     | `.rte`     |
+| `C_bk`        | (t·m⁻³)       |                | Concentration of bank and bar inputs (constant)                                                                                   | `.rte`     |
+| `η`           | (–)          |                | Correction exponent for transport capacity when the floodplain is active (see Eq. 38)                                             | `.rte`     |
 
 
 
