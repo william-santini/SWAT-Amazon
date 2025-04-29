@@ -62,7 +62,7 @@ remotes::install_github("chrisschuerz/SWATrunR")
 ### Load the demo or use your own project
 You can download the demo project here.
 
-### Set the general parameters in the corresponding chunk:
+### Set the general parameters in the corresponding chunk
 
 ```{r General parameters}
 # Setting the Working Directory
@@ -78,6 +78,13 @@ Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2",
 
 ```
 
+### Add new SWAT-Amazon parameters to the `TxtInOut` files
+
+Since SWAT-Amazon introduces additional parameters, it is necessary to add them to the `.RTE` and `.BSN` files within the `TxtInOut` directory of your SWAT project.  
+This can be done automatically using the code chunk `{r Adding new parameters in TxtInOut files}` provided in the Notebook.
+
+> **Note:** This operation only needs to be performed once.  
+> To prevent accidental modifications or duplication, it is recommended to **comment out the code chunk** after it has been executed successfully.
 
 
 
@@ -86,15 +93,6 @@ Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2",
 
 
 
-Set up the path to your project. Set up the new parameters from SWATplusHybam and hbc.txt (height boundary condition) will be used for the diffusive wave algorithm.
-```r
-# Put the path to your TxtInOut file here
-project_path <- "path_to_project/demo"
-
-setup_input_files(project_path, "hbc.txt;hyd;1")
-setup_par_bounds(project_path)
-setup_new_ch_parm(project_path)
-```
 
 Run the model. You need to give the project path and the start and end date and number of warm up years. There are a lot of output types but we will be focusing on discharge at Requena one this example. Be careful, the channel (unit) number is not always the same as the basin number.
 ```r
