@@ -1,8 +1,6 @@
 # SWAT-Amazon
 `SWAT-Amazon` is a modified version of the [SWAT2012](https://swat.tamu.edu/software/plus/) model, aiming to enhance water and sediment routing for large basins (such as the Amazon basin). This version is handled from a simple R Notebook based on the [SWATRunR](https://github.com/chrisschuerz/SWATplusR) package.
 
-SWAT-Amazon is under development and hasn't been tested on many devices and projects yet, keep in mind that it will be updated at some point and unknown errors might occur. Feed back and suggestions are highly appreciated, please don't hesitate to [Contact](#Contact) us.
-
 ## Table of content
 * [Introduction](#Introduction)
 * [Installation](#Installation)
@@ -11,7 +9,7 @@ SWAT-Amazon is under development and hasn't been tested on many devices and proj
 * [Contact](#Contact)
 
 ## Introduction
-The `SWATplusHybam` package is divided into two parts : The modified Fortran program of the SWAT+ model (SWATplusHybam.exe) and the R notebook (SWAT_analysis) which is a tool to link SWAT+ projets with your modeling workflows in R.
+The `SWAT-Amazon` package is divided into two parts : The modified Fortran program of the SWAT2012 model (SWAT-Amazon.exe) and the R notebook (SWAT_analysis) which is a tool to link SWAT projets with your modeling workflows in R.
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
@@ -272,18 +270,14 @@ plot_results(simulations, simulation_names, start_date, end_date, title)
 
 Other simple ways to plot your data are shown on the [SWATplusR](https://chrisschuerz.github.io/SWATplusR/articles/04_vis_example.html) Git page.
 
-
-
 ## Calibration
-
 ### Input parameters
-`SWATplusHybam` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini & al.
+`SWAT-Amazon` offers the possibility to chose among multiple water routing methods. Each of these Fortran routines are described in Santini & al.
 | Number | Water routing method (no_rte) | Boundary condition requirement | Parameters |
 | --- | --- | --- | --- |
 | 0 | SWAT+ routing | No | None |
 | 1 | Kinematic | No | None |
 | 2 | Diffusive | Yes | None |
-| 3 | Muskingum with variable K parameter | No | MKKCO1, MKKCO1, MKKCO3, MKKX |
 
 Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR). So here we are using the same trick to chose the water routing algorithm.
 ```r
@@ -296,10 +290,7 @@ par_single = c("no_rte.bsn|change = abschg" = 1)
 | theta_fp.bsn | 0.0:10.0 | Floodplain angle (Case of a tri. section) [rad] |
 | alpha_f.bsn | 0.0:10.0 | 0.2 < alpha < 0.7 (Bates et al., 2010) |
 | cnfp.bsn | 0.0:10.0 |  |
-| mkkco1.bsn | 0.0:10.0 |  |
-| mkkco2.bsn | 0.0:10.0 |  |
-| mkkco3.bsn | 0.0:10.0 |  |
-| mkkx.bsn | 0.0:10.0 |  |
+
 
 A lot of parameters can already be changed for calibration on the [SWAT+](https://swatplus.gitbook.io/docs/user/editor/inputs/change-calibration) model but the website is not yet updated. You can go and check the cal_parm.cal file in the TxtInOut folder to see the list of available parameters.
 
@@ -325,4 +316,4 @@ q_sim_day <- run_swatplus(project_path = project_path,
 
 
 ## Contact
-Created by William Santini (william.santini@ird.fr) and Florent Papini (florent.papini@ird.fr)
+Created by William Santini (william.santini@ird.fr)
