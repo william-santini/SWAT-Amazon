@@ -55,12 +55,6 @@ For both hydraulic methods, a floodplain reservoir can be parametrized in order 
 
 
 
-
-
-
-
-
-
 | Number | Water routing method (no_rte) | Boundary condition requirement | Parameters |
 | --- | --- | --- | --- |
 | 0 | SWAT+ routing | No | None |
