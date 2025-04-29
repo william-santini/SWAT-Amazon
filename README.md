@@ -13,21 +13,26 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
 ## New Modules for Water and Sediment Routing
-In `SWAT-Amazon`, the water routing method can be selected by modifying the parameter EQROUTING in the .BSN file through the R-Notebook `SWAT-Amazon-Calib`. Four method are availables:
+
+In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQROUTING` parameter in the `.BSN` file using the R Notebook `SWAT-Amazon-Calib`. **Five** routing methods are currently available:
 
 **Table 1:** Water Routing Method in SWAT-Amazon
 
-| EQROUTING |  Water routing method (no_rte)                           | Boundary condition requirement|
-|-----------|----------------------------------------------------------|-------------------------------|
-| 0         | Variable storage method (Default SWAT method)            | No                            |
-| 1         | Muskingum method (Default SWAT method)                   | No                            |
-| 2         | Muskingum with K variable method (New. Cf. Santini 2020) | No                            |
-| 3         | Kinematic wave (New. Cf. Santini et al., 2025)           | No                            |
-| 4         | Diffusive wave (New. Cf. Santini et al., 2025)           | **Yes:** use `hdwnstrm.TXT`   |
+| `EQROUTING` |  Water routing method (`.BSN` file)                         | Boundary condition requirement      |
+|-------------|-------------------------------------------------------------|-------------------------------------|
+| 0           | Variable storage method *(Default SWAT method)*             | No                                  |
+| 1           | Muskingum method *(Default SWAT method)*                    | No                                  |
+| 2           | Muskingum with K variable method *(New; see Santini, 2020)* | No                                  |
+| 3           | Kinematic wave *(New; see Santini et al., 2025)*            | No                                  |
+| 4           | Diffusive wave *(New; see Santini et al., 2025)*            | **Yes:** require `hdwnstrm.TXT` file|
 
 
-> **Note:** In the Muskingum with K variable method the parameter K is a function of the water level. In particular, this method allows to increase the lag time of the flood wave propagation (and the water volume stored in the conceptual reservoir) when the floodplain is active.  
-> For both hydraulic methods, a floodplain reservoir can be parametrized in order to propagate the flood wave with attenuation. The user has the choice between two floodplain geometries: First, a reservoir with a rectangular cross-section, and secondly a reservoir with a triangular cross-section.
+> **Note:**  
+> In the *Muskingum with variable K* method, the parameter `K` is a function of the water level. This allows the model to dynamically increase the lag time of flood wave propagation—and consequently the water volume stored—when the floodplain becomes active.  
+>  
+> For the hydraulic wave methods (Kinematic and Diffusive), a conceptual **floodplain reservoir** can be activated to simulate flood attenuation. Two floodplain geometries are available:  
+> - A **rectangular cross-section** defined by a width coefficient `k_fp`;  
+> - A **triangular cross-section** defined by a slope angle `θ_fp`.
 
 
 ### SWAT-Amazon parameters for Water Routing
