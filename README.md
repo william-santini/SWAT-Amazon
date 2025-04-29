@@ -1,5 +1,5 @@
 # SWAT-Amazon
-* [Overview of the New Water and Sediment Routing Modules in SWAT-Amazon](#Overview-of-the-New-Water-and-Sediment-Routing-Modules-in-SWAT-Amazon)
+* [Overview of the New Modules in SWAT-Amazon](#Overview-of-the-New-Modules-in-SWAT-Amazon)
 * [Installation](#Installation)
 * [Getting started](#Getting-started)
 * [Calibration](#Calibration)
@@ -11,7 +11,7 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
-## Overview of the New Water and Sediment Routing Modules in SWAT-Amazon
+## Overview of the New Modules in SWAT-Amazon
 
 `SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `SWAT-Amazon-Calib`. A total of **five** routing options are available:
 
@@ -126,21 +126,9 @@ remotes::install_github("chrisschuerz/SWATrunR")
 
 You can download the demo project [here](#) or use the `txtInOut` folder from your own SWAT project.
  
-### Set the general parameters
-The working directory and SWAT project path 
+### Set the General Parameters
 
-```{r General parameters}
-# Setting the Working Directory
-setwd("D:/your_working_directory")
-# Loading the Notebook's functions
-source("tools_and_functions_global.R")
-# Loading the SWAT's TxtInOut
-project_path <- "Input/TxtInOut"
-
-# List of colors for visualizations:
-Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2","#D55E00", "#CC79A7", "#00AFBB")
-
-```
+You can define the working directory and the path to your SWAT project in the R code chunk labeled `{r General parameters}`.
 
 ### Add the New `SWAT-Amazon` Parameters to the `TxtInOut` files
 
@@ -157,12 +145,59 @@ Use the Template_Station_SWAT.xlsx files to load the observed data in your R env
 ```
 Obs_path <- "Template_Stations_SWAT.xlsx"
 
-Obs <- read_excel(Obs_path , sheet = "LAG", col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
-                                                          "date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
-                                                          "numeric", "numeric", "numeric","numeric","numeric","numeric"))
+Obs <- read_excel(Obs_path, sheet = "Your_Station",
+                  col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
+                                "date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
+                                "numeric", "numeric", "numeric","numeric","numeric","numeric"))
 ```
 
 ### Configure Simulation
+Now, you can configure the simulation in the chunk `{r Parametring simulations}`:
+
+- Setting simulation period 
+```
+Date_ini <- as.Date("2008-01-01",  format = "%Y-%m-%d")
+Date_fin <- as.Date("2015-12-31",  format = "%Y-%m-%d")
+```
+
+- Modification of the files BASINS.BSN
+```
+bsn_file <- list.files(project_path,pattern =".bsn",full.names=TRUE)
+modif_par_bsn(bsn_file,"IPET", 2)
+modif_par_bsn(bsn_file,"EQROUTING", 4)
+modif_par_bsn(bsn_file,"BCFACTOR", 1)
+
+```
+
+- Routing headwaters or not: FILE.CIO
+```
+
+
+```
+
+- Settings outputs
+
+```
+# List of sub-basins in which outputs are to be displayed
+sub_basins = c(19, 5, 20, 2, 21)
+
+l_out_files <- list.files(project_path, pattern="output", full.names = TRUE)
+
+q_set <- define_output(file = 'rch', variable = 'FLOW_OUT', unit = sub_basins)
+h_set <- define_output(file = 'rch', variable = 'WAT_DEP', unit = sub_basins)
+u_set <- define_output(file = 'rch', variable = 'AV_VEL', unit = sub_basins)
+qsf_set <- define_output(file = 'sed', variable = 'FINES_OUT', unit = sub_basins)
+qss_set <- define_output(file = 'sed', variable = 'SAND_OUT', unit = sub_basins)
+
+# Define the list of the output variables
+l_output  <- list(q = q_set, h = h_set, u = u_set, qsf = qsf_set, qss = qss_set)
+
+```
+
+
+
+
+
 
 ### Prepare your Parameter Sets
 Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR). So here we are using the same trick to chose the water routing algorithm.
