@@ -1,18 +1,17 @@
 # SWAT-Amazon
-* [Introduction](#Introduction)
+* [Brief Introduction to the New Modules for Water and Sediment Routing](#Brief Introduction to the New Modules for Water and Sediment Routing)
 * [Installation](#Installation)
 * [Getting started](#Getting-started)
 * [Calibration](#Calibration)
 * [Contact](#Contact)
 
-## Introduction
 `SWAT-Amazon`  is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
 This modeling framework consists of a **Fortran-based executable** (SWAT-Amazon.exe), derived from the standard SWAT2012 code, and an **R Notebook** (SWAT-Amazon-Calib.Rmd) designed to support the entire modeling workflow. 
 This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures, with the [SWATrunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
-## New Modules for Water and Sediment Routing
+## Brief Introduction to the New Modules for Water and Sediment Routing
 
 In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQROUTING` parameter in the `.BSN` file using the R Notebook `SWAT-Amazon-Calib`. **Five** routing methods are currently available:
 
@@ -55,9 +54,9 @@ In `SWAT-Amazon`, the water routing method can be selected by modifying the `EQR
 | `CNCH`        | (–)          | Water          | Coefficient for increasing flow resistance in the main channel during low flows                                | `.rte`     |
 | `DSS`         | (m)          | Sand           | Arithmetic mean diameter of suspended sands                                                                    | `.rte`     |
 | `DB`          | (m)          | Sand           | Arithmetic mean diameter of riverbed sands                                                                     | `.rte`     |
-| `S`           | (–)          | Sand           | Relative sand density. *s = 2.65* was used in this study                                                       | `.rte`     |
+| `S`           | (–)          | Sand           | Relative sand density                                                                                          | `.rte`     |
 | `BETA`        | (–)          | Sand           | Ratio of suspended sand to eddy diffusivity, imposed or calculated using Santini et al. (2019)                 | `.rte`     |
-| `NU`          | (m²·s⁻¹)     | Sand           | Kinematic water viscosity. Value corresponds to 28 °C                                                          | `.rte`     |
+| `NU`          | (m²·s⁻¹)     | Sand           | Kinematic water viscosity                                                                                      | `.rte`     |
 | `SIGMA`       | (–)          | Sand           | Coefficient to determine *k_s′*: *k_s′ = σ × d_b*                                                              | `.rte`     |
 | `KCH`         | (–)          | Sand           | Main channel susceptibility to erosion (riverbed only), value between 0 and 1                                  | `.rte`     |
 | `CBK`         | (t·m⁻³)      | Sand           | Concentration of bank and bar inputs (constant)                                                                | `.rte`     |
