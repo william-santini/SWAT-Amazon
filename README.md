@@ -283,22 +283,36 @@ All functions rely on the **`plotly`** package for interactive visualization.
   It can show results from parallel simulations and sort them based on the best combinations of objective function scores.
 
 - **`Plot_calib_curve()`**  
-  Plots the rating curves for a simulation and compares them with the observed data. Useful for evaluating the consistency between simulated and measured discharge-sediment relationships.
+  Plots the rating curves for a simulation and compares them with observed data. Useful for evaluating the consistency between simulated and measured discharge-sediment relationships.
 
 - **`Plot_interannual()`**  
-  Displays interannual simulations.
+  Displays interannual simulations for a selected variable across years to highlight long-term trends or anomalies.
 
-- `monthly_average()`
-- `Compute_day_interannual()`
-- `Compute_month_interannual()`
-- `Compute_gof()`
-- `Plot_gof()`
-- `VAR_bound_ggPlot()`
-- `Temp_Analysis_ggPlot()` 
+- **`monthly_average()`**  
+  Computes monthly averages from daily or sub-daily time series.
+
+- **`Compute_day_interannual()`**  
+  Computes the interannual average of each day of the year (e.g., mean annual cycle) for a given variable.
+
+- **`Compute_month_interannual()`**  
+  Computes the interannual average of each calendar month for a given variable.
+
+- **`Compute_gof()`**  
+  Calculates objective functions (e.g., NSE, KGE, PBIAS) to assess model performance.
+
+- **`Plot_gof()`**  
+  Plots the results of the objective functions for visual comparison between simulations.
+
+- **`VAR_bound_ggPlot()`**  
+  Generates plots for sensitivity analysis by displaying the impact of parameter bounds on model outputs.
+
+- **`Temp_Analysis_ggPlot()`**  
+  Visualizes temporal sensitivity analysis results to explore how sensitivity evolves over time.
+
 
 **Example of use for  subbasin 5 with the chunk `{r Display results @ 5}`**  
 
-  ```
+```
 # To be configured:
 station_name = "XXX"
 code_station = "5"       # station code in Template_Station_SWAT.xlsx  (observations)
@@ -387,7 +401,7 @@ sim_hu  <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub
 Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
                               "h","u",gaug_hu, obs_yx_2 = obs_hu, sim_hu)
 
-  ```
+```
 
 ### Going Further
 
@@ -400,7 +414,7 @@ Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
 
 
 ## Contact
-Created by William Santini (william.santini@ird.fr)
+Created by William Santini (william.santini@ird.fr) and Alexandre Delort-Ylla (alexandre.delort-ylla@ird.fr).
 
 ## References
 Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, J.M.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, **2019**.
