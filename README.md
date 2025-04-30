@@ -166,7 +166,6 @@ bsn_file <- list.files(project_path,pattern =".bsn",full.names=TRUE)
 modif_par_bsn(bsn_file,"IPET", 2)
 modif_par_bsn(bsn_file,"EQROUTING", 4)
 modif_par_bsn(bsn_file,"BCFACTOR", 1)
-
 ```
 
 - Routing headwaters or not: modifying the `FILE.CIO`:
@@ -194,7 +193,6 @@ qss_set <- define_output(file = 'sed', variable = 'SAND_OUT', unit = sub_basins)
 
 # Define the list of the output variables
 l_output  <- list(q = q_set, h = h_set, u = u_set, qsf = qsf_set, qss = qss_set)
-
 ```
 
 ### Prepare your Parameter Sets
@@ -205,7 +203,7 @@ In `SWAT-Amazon`, 3 main parameter set are considered:
   - **setpar_bestcal.R** is for keeping the best simulation
   - **setpar_paral_tibble.R** is for parallel processing
 
-Example of parameter set (setpar_bestcal) for subbasin 21:
+Example of parameter set (setpar_bestcal.R) for subbasin 21:
 
 ```
 setpar_bestcal <- c(
@@ -233,25 +231,45 @@ setpar_bestcal <- c(
 ### Run the Model
 Use the `SWATrunR` function `run_swat2012()`.
 
-```{r First Run without any calibration}
+- `{r First Run without any calibration}`
+```
 setpar_0 <- c()
 sim_0 <- run_swat2012(project_path = project_path, output = l_output,
-                              parameter = setpar_0, output_interval = "d",
-                              start_date = Date_ini, end_date = Date_fin,
-                              years_skip = 2, add_parameter=TRUE, keep_folder=F)
+                      parameter = setpar_0, output_interval = "d",
+                      start_date = Date_ini, end_date = Date_fin,
+                      years_skip = 2, add_parameter=TRUE, keep_folder=F)
 ```
-
-```{r Test Run}
-source("setpar_tests.R") # Call the corresponding parameter set
+- `{r Test Run}`
+```
+source("setpar_tests.R") # load the corresponding parameter set
 
 sim_tests <- run_swat2012(project_path = project_path, output = l_output,
-                              parameter = setpar_tests, output_interval = "d",
-                              start_date = Date_ini, end_date = Date_fin,
-                              keep_folder = F, years_skip = 2)
+                          parameter = setpar_tests, output_interval = "d",
+                          start_date = Date_ini, end_date = Date_fin,
+                          keep_folder = F, years_skip = 2)
 ```
 
+- `{r Best calibration}`
+```{r Best calibration, include=FALSE}
 
+source("setpar_bestcal.R")
 
+sim_bestcal <- run_swat2012(project_path = project_path, output = l_output,
+                            parameter = setpar_bestcal, output_interval = "d",
+                            start_date = Date_ini, end_date = Date_fin,
+                            keep_folder = F, years_skip = 2)
+```
+
+- `{r Parallel processing}`
+```
+n <- 1000 # Number of runs
+source("setpar_paral_tibble.R")
+
+sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
+                                 parameter = setpar_paral_tibble, output_interval = "d",
+                                 start_date = Date_ini, end_date = Date_fin,
+                                 years_skip = 2, n_thread = 8)
+```
 
 
 ### Plot
