@@ -4,8 +4,7 @@
 This modeling framework consists of a **Fortran-based executable (SWAT-Amazon.exe)**, derived from the standard SWAT2012 code, and an **R Notebook (SWAT-Amazon-Calib.Rmd)** designed to support the entire modeling workflow. 
 This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures, with the [SWATrunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
-[Fig1.pdf](https://github.com/user-attachments/files/19980953/Fig1.pdf)
-
+![Uploading SWAT-Amazon.png…]()
 
 
 ## Overview of the New Modules in SWAT-Amazon
