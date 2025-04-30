@@ -269,7 +269,7 @@ sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
 
 ### Display and Analyse Results
 
-Several functions are available in the `tools_and_functions_global.R` file to help visualize and analyze simulation outputs. These functions are **not included in a package**, so users can **easily modify or extend** them as needed.
+Several functions are available in the `tools_and_functions.R` script to help visualize and analyze simulation outputs. These functions are **not included in a package**, so users can **easily modify or extend** them as needed.
 
 All functions rely on the **`plotly`** package for interactive visualization.
 
