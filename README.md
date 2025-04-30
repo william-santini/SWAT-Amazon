@@ -140,9 +140,9 @@ This can be done automatically using the code chunk `{r Adding new parameters in
 Use the Template_Station_SWAT.xlsx files to load the observed data in your R environement with the chunk `{r Loading observation data}`
 
 ```
-Obs_path <- "stations_obs.xlsx"
+Obs_path <- "D:/SWAT+_HyBAm/SWAT_Amazon/inputs_files/stations_obs.xlsx"
 
-Obs_station_template <- read_excel(Obs_path, sheet = "Your_Station",
+Obs_STATION_NAME_template <- read_excel(Obs_path, sheet = "STATION_NAME",
                                    col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
                                    "date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
                                    "numeric", "numeric", "numeric","numeric","numeric","numeric"))
@@ -177,19 +177,25 @@ modif_par_bsn(bsn_file,"BCFACTOR", 1)
 - Settings outputs
 
 ```
-# List of sub-basins in which outputs are to be displayed
-sub_basins = c(19, 5, 20, 2, 21)
+# List of subbasins in which outputs are to be displayed
+sub_basins = seq(1, 23, 1)
 
-l_out_files <- list.files(project_path, pattern = "output", full.names = TRUE) # find the output files in the txtInOut
+l_out_files <- list.files(project_path, pattern = "output", full.names = TRUE)
 
-q_set   <- define_output(file = 'rch', variable = 'FLOW_OUT', unit = sub_basins)
-h_set   <- define_output(file = 'rch', variable = 'WAT_DEP', unit = sub_basins)
-u_set   <- define_output(file = 'rch', variable = 'AV_VEL', unit = sub_basins)
-qsf_set <- define_output(file = 'sed', variable = 'FINES_OUT', unit = sub_basins)
-qss_set <- define_output(file = 'sed', variable = 'SAND_OUT', unit = sub_basins)
+h_set   <- define_output(file = 'rch', variable = 'WAT_DEP', unit = sub_basins)     # water levels
+u_set   <- define_output(file = 'rch', variable = 'AV_VEL', unit = sub_basins)      # velocity
+q_set   <- define_output(file = 'rch', variable = 'FLOW_OUT', unit = sub_basins)    # water discharge
+qsf_set <- define_output(file = 'sed', variable = 'FINES_OUT', unit = sub_basins)   # Suspended fine sediments
+qss_set <- define_output(file = 'sed', variable = 'SAND_OUT', unit = sub_basins)    # Suspended sands
+qst_set <- define_output(file = 'sed', variable = 'SED_OUT', unit = sub_basins)     # Total Suspended Sediments
+p_set   <- define_output(file = 'sub', variable = 'PRECIP', unit = sub_basins)      # precipitation
+et_set  <- define_output(file = 'sub', variable = 'ET', unit = sub_basins)          # evapo-transpiration
+pet_set <- define_output(file = 'sub', variable = 'PET', unit = sub_basins)         # potential evapo-tranpiration
 
-# Define the list of the output variables
-l_output  <- list(q = q_set, h = h_set, u = u_set, qsf = qsf_set, qss = qss_set)
+#Define the list of the output variables
+l_output  <- list(h = h_set, u = u_set, q = q_set, qsf = qsf_set, qss = qss_set, qst = qst_set,
+                  p = p_set, et = et_set, pet = pet_set)
+
 ```
 
 ### Prepare your Parameter Sets
@@ -203,7 +209,7 @@ In `SWAT-Amazon`, 3 main parameter set are considered:
 Example of parameter set (setpar_bestcal.R) for a subbasin 21:
 
 ```
-setpar_bestcal <- c(
+setpar_test <- c(
   # Reach & flow routing
     "CH_S2_sub21::CH_S2.rte      | change = absval | sub = 21" = 3.0e-05,
     "CH_N2_sub21::CH_N2.rte      | change = absval | sub = 21" = 1/44, 
@@ -315,14 +321,14 @@ All functions rely on the **`plotly`** package for interactive visualization.
   The function supports chunk-based **parallel processing** for high-dimensional outputs and returns both a `ggplot` object and raw sensitivity data. Particularly useful for identifying time-dependent parameter influence in dynamic models.
 
 
-**Example of use for subbasin 5 with the chunk `{r Display results @ 5}`**  
+**Example of use for subbasin 21 with the chunk `{r Display results @ station XXX}`**  
 
 ```
 # To be configured:
-station_name = "XXX"
-code_station = "5"       # station code in station_obs.xlsx  (observations file)
-n_sub = 5                # subbasin number
-sim_name = "sim_tests"   # simulation to display in inter-annual graph and rating curve
+station_name = "XXX"          # Name of the station (used for graph titles)
+code_station = "STATION_NAME" # Station code as listed in station_obs.xlsx (observation file)
+n_sub = 21                    # Subbasin number associated with the station
+sim_name = "sim_tests"        # Name of the simulation to use in interannual graphs and the rating curve
 
 # Observations
 Obs_template = eval(parse(text = paste0("Obs_", code_station, "_template")))
@@ -379,15 +385,15 @@ Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
  
 variablename <- "Q"
 obs <- data.frame(Obs_template$Date, Obs_template$Q_obs)
-sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$Q_", n_sub)))$date,
-                  eval(parse(text = paste0(sim_name, "$simulation$Q_", n_sub)))$run_1 )
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$q_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$q_", n_sub)))$run_1 )
 
 Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
 
 variablename <- "Qss"
 obs <- data.frame(Obs_template$Date, Obs_template$Qss_obs)
-sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$Qss_", n_sub)))$date,
-                  eval(parse(text = paste0(sim_name, "$simulation$Qss_", n_sub)))$run_1 )
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$qss_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$qss_", n_sub)))$run_1 )
 
 Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
 
