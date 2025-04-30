@@ -169,13 +169,13 @@ modif_par_bsn(bsn_file,"BCFACTOR", 1)
 
 ```
 
-- Routing headwaters or not: `FILE.CIO`
+- Routing headwaters or not: modifying the `FILE.CIO`:
 ```
-# Function to be written... manually changed in the FILE.CIO file
+# Function to be written... need to be manually changed in the FILE.CIO file
 # By default, headwaters are not routed in SWAT2012
-# I_SUBW = 0 : Default value: Headwaters are not routed (and it is not possible to force the Qss and Qsf)
-# I_SUBW = 1 : Headwaters are routed (and Qss or Qsf are forced if required in the routing module)
-# NB: Qss and Qsf forcing is achieved through the Qss_forcing.prn or Qsf_forcing.prn input files
+# I_SUBW = 0 : Default value: Headwaters are not routed (and it is not possible to force the Qss and Qsf with the .PRN files)
+# I_SUBW = 1 : Headwaters are routed (and Qss or Qsf can be forced if required with the .PRN files)
+# NB: Qss and Qsf forcing is achieved through the Qss_forcing.prn or Qsf_forcing.PRN input files
 ```
 
 - Settings outputs
@@ -184,11 +184,11 @@ modif_par_bsn(bsn_file,"BCFACTOR", 1)
 # List of sub-basins in which outputs are to be displayed
 sub_basins = c(19, 5, 20, 2, 21)
 
-l_out_files <- list.files(project_path, pattern="output", full.names = TRUE)
+l_out_files <- list.files(project_path, pattern="output", full.names = TRUE) # find the output files in the txtInOut
 
-q_set <- define_output(file = 'rch', variable = 'FLOW_OUT', unit = sub_basins)
-h_set <- define_output(file = 'rch', variable = 'WAT_DEP', unit = sub_basins)
-u_set <- define_output(file = 'rch', variable = 'AV_VEL', unit = sub_basins)
+q_set   <- define_output(file = 'rch', variable = 'FLOW_OUT', unit = sub_basins)
+h_set   <- define_output(file = 'rch', variable = 'WAT_DEP', unit = sub_basins)
+u_set   <- define_output(file = 'rch', variable = 'AV_VEL', unit = sub_basins)
 qsf_set <- define_output(file = 'sed', variable = 'FINES_OUT', unit = sub_basins)
 qss_set <- define_output(file = 'sed', variable = 'SAND_OUT', unit = sub_basins)
 
@@ -197,13 +197,43 @@ l_output  <- list(q = q_set, h = h_set, u = u_set, qsf = qsf_set, qss = qss_set)
 
 ```
 
-
-
-
-
-
 ### Prepare your Parameter Sets
-Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR). So here we are using the same trick to chose the water routing algorithm.
+Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR).
+In `SWAT-Amazon`, 3 main parameter set are considered:
+
+  - **setpar_test.R** is for testing changes
+  - **setpar_bestcal.R** is for keeping the best simulation
+  - **setpar_paral_tibble.R** is for parallel processing
+
+Example of parameter set for subbasin 21:
+
+```
+  # Reach & flow routing
+    "CH_S2_sub21::CH_S2.rte  | change = absval | sub = 21" = 3.0e-05,
+    "CH_N2_sub21::CH_N2.rte  | change = absval | sub = 21" = 1/44, 
+    "CNCH_sub21::CNCH.rte    | change = absval | sub = 21" = 0.4,
+    "HCH_sub21::HCH.rte      | change = absval | sub = 21" = 14.5,
+    "CHD_sub21::CHD.rte      | change = absval | sub = 21" = 14.59,
+    "CH_W2_sub21::CHW2.rte   | change = absval | sub = 21" = 750,  
+    
+    "FPGEOM_sub21::FPGEOM.rte    | change = absval | sub = 21" = 1,
+    "THETAFP_sub21::THETA_FP.rte | change = absval | sub = 21" = 0.0002,
+    "CNFP_sub21::CNFP.rte        | change = absval | sub = 21" = 1,
+    
+    # Sand routing    
+    "DB_sub21::DB.rte            | change = absval | sub = 21" = 219.4, 
+    "DSS_sub21::DSS.rte          | change = absval | sub = 21" = 80,
+    "CBK_sub21::CBK.rte          | change = absval | sub = 21" = 188.1,
+    "KCH_sub21::KCH.rte          | change = absval | sub = 21" = 0.01,
+    "BETA_sub21::BETA.rte        | change = absval | sub = 21" = 1.64,
+    "ETA_sub21::ETA.rte          | change = absval | sub = 21" = 6.95
+
+```
+
+
+
+
+
 
 
 ### Perform your Fisrt Run
@@ -247,7 +277,7 @@ q_sim_day <- run_swatplus(project_path = project_path,
 Created by William Santini (william.santini@ird.fr)
 
 ## References
-Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, JM.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, 2019.
+Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, J.M.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, 2019.
 
 Santini, W.: Caractérisation de la dynamique hydro-sédimentaire du bassin de l’Ucayali (Pérou), par une approche intégrant réseau de mesures, télédétection et modélisation hydrologique, PhD thesis, Université Toulouse III - Paul Sabatier, Toulouse, France, 2020.
 
