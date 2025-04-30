@@ -276,8 +276,14 @@ All functions rely on the **`plotly`** package for interactive visualization.
 #### Available functions:
 
 - **`Graphstation()`**  
-  Displays simulated and observed time series for a selected variable (`h`, `u`, `Q`, `Qss`, `Qsf`, etc.) and station.  
+  Displays simulated and observed time series for a selected variable (`h`, `u`, `Q`, `Qss`, `Qsf`, etc.) and station.
+
+![newplot (4)](https://github.com/user-attachments/assets/652689a0-6451-4f8b-81de-fb73a81197f3)
+
+
   It also show results from parallel simulations and sort them based on the best combinations of objective function scores.
+
+  
 
 - **`Plot_calib_curve()`**  
   Plots the rating curves for a simulation and compares them with observed data.
