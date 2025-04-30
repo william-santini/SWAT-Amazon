@@ -80,9 +80,9 @@ A total of five routing options are available:
 - **Supplementary files**  
   Download the required additional files to ensure proper execution of the model:
   - **`station_obs.xlsx`** — **Observation file** to be placed in the same directory as the Notebook `Run-SWAT-Amazon.Rmd`
-  - **`Qss_forcing.PRN`** — Input file to force **Suspended Sand load** in reaches, if needed (to be placed in `TxtInOut`)
-  - **`Qsf_forcing.PRN`** — Input file to force **Suspended Fine load** in reaches, if needed (to be placed in `TxtInOut`).
-  - **`hdwnstrm.TXT`** — File containing **boundary water levels** for simulations using the Diffusive Wave option (to be placed in `TxtInOut`)
+  - **`Qss_forcing.PRN`** — Input file to force **Suspended Sand load** (Qss) in reaches, if needed (to be placed in `TxtInOut`)
+  - **`Qsf_forcing.PRN`** — Input file to force **Suspended Fine load** (Qsf) in reaches, if needed (to be placed in `TxtInOut`).
+  - **`hdwnstrm.TXT`** — File containing **boundary water levels** (h) for simulations using the Diffusive Wave option (to be placed in `TxtInOut`)
 
 > **Note:** The file `How_to_generate_inputs_files.TXT` provides instructions on how to create or modify the supplementary files listed above.
 
