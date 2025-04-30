@@ -70,7 +70,7 @@ A total of five routing options are available:
   `your_project/scenarios/Default/TxtInOut/`  
   *No installation is required.*
 
-- **Run-SWAT-Amazon.Rmd**  
+- **`Run-SWAT-Amazon.Rmd`**  
   Download the R Notebook and it dependency R scripts:
   - **tools_and_functions.R**
   - **setpar_test.R**
