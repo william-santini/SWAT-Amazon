@@ -10,7 +10,8 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 
 ## What's New in SWAT-Amazon?
 
-`SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `Run-SWAT-Amazon.Rmd`. A total of five routing options are available:
+`SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `Run-SWAT-Amazon.Rmd`. 
+A total of five routing options are available:
 
 **Table 1:** Water Routing Methods in SWAT-Amazon
 
