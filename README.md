@@ -6,14 +6,14 @@
 * [Contact](#Contact)
 
 `SWAT-Amazon` is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
-This modeling framework consists of a **Fortran-based executable** (SWAT-Amazon.exe), derived from the standard SWAT2012 code, and an **R Notebook** (SWAT-Amazon-Calib.Rmd) designed to support the entire modeling workflow. 
+This modeling framework consists of a **Fortran-based executable (SWAT-Amazon.exe)**, derived from the standard SWAT2012 code, and an **R Notebook (SWAT-Amazon-Calib.Rmd)** designed to support the entire modeling workflow. 
 This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures, with the [SWATrunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
 <img src="img/SWATplusHybamDiagram.png" title="SWATplusHybam diagram" alt="plot" width="100%" style="display: block; margin: auto;" />
 
 ## Overview of the New Modules in SWAT-Amazon
 
-`SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `SWAT-Amazon-Calib`. A total of **five** routing options are available:
+`SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `SWAT-Amazon-Calib`. A total of five routing options are available:
 
 **Table 1:** Water Routing Methods in SWAT-Amazon
 
@@ -26,7 +26,7 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 | 4           | Diffusive wave method *(New; see Santini et al., 2025)* | **Yes**: requires `hdwnstrm.TXT` file  |
 
 > **Note:**  
-> In the *Muskingum with variable K* method, the parameter `K` varies with the water level. This allows the model to dynamically increase the lag time of flood wave propagation—and consequently, the volume of water stored—when the floodplain becomes active.  
+> In the *Muskingum with variable K* method (Santini, 2020), the storage time `K` varies with the water level. This allows the model to dynamically increase the lag time of flood wave propagation—and consequently, the volume of water stored—when the floodplain becomes active.  
 >  
 > For the hydraulic wave methods (*Kinematic* and *Diffusive*), a conceptual **floodplain reservoir** can be activated to simulate flood wave attenuation. Two floodplain geometries are available:  
 > - A **rectangular cross-section**, defined by the width coefficient `KFP`;  
@@ -245,3 +245,14 @@ q_sim_day <- run_swatplus(project_path = project_path,
 
 ## Contact
 Created by William Santini (william.santini@ird.fr)
+
+## References
+Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, JM.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, 2019.
+
+Santini, W.: Caractérisation de la dynamique hydro-sédimentaire du bassin de l’Ucayali (Pérou), par une approche intégrant réseau de mesures, télédétection et modélisation hydrologique, PhD thesis, Université Toulouse III - Paul Sabatier, Toulouse, France, 2020.
+
+Santini, W., Delort-Ylla, A., Martinez, JM., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, JJ. and Molina-Carpio, J.: Coupling Remote Sensing and Modelling for Hydro-Sediment Flux Monitoring in the Amazon Basin: The Ucayali Case Study. Submited in 2025.
+
+
+
+
