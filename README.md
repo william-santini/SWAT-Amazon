@@ -276,18 +276,18 @@ Several functions are available in the tools_and_functions_global.R file to help
 All plotting functions use the plotly package for interactive visualization.
 
 **Available functions:**
-- **`Graphstation()`**:
+- **`Graphstation()`**  
   Displays simulated and observed time series (e.g., discharge or sediment) for a selected station
 
 
 
 
-- **`Plot_calib_curve()`**
+- **`Plot_calib_curve()`**  
   Display the Q(h) and u(h) rating curves
 
 
 
-- **`Plot_interannual()`** 
+- **`Plot_interannual()`**   
 - `Plot_gof()`
 - `VAR_bound_ggPlot()`
 - `Temp_Analysis_ggPlot()` 
