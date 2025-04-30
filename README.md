@@ -92,7 +92,7 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 ### Structure your Project Folder
 
 your_project/  
-├── txtInOut/  
+├── TxtInOut/  
 │   ├── SWAT-Amazon.exe  
 │   ├── Qss_forcing.PRN  
 │   ├── Qsf_forcing.PRN  
@@ -124,7 +124,7 @@ remotes::install_github("chrisschuerz/SWATrunR")
 
 ### Load the demo or use your own SWAT project
 
-You can download the demo project [here](#) or use the `txtInOut` folder from your own SWAT project.
+You can download the demo project [here](#) or use the `TxtInOut` folder from your own SWAT project.
  
 ### Set the General Parameters
 
@@ -162,7 +162,7 @@ Date_fin <- as.Date("2015-12-31",  format = "%Y-%m-%d")
 
 - Modification of the SWAT file `BASINS.BSN`
 ```
-bsn_file <- list.files(project_path,pattern =".bsn",full.names=TRUE)
+bsn_file <- list.files(project_path,pattern = ".bsn",full.names = TRUE)
 modif_par_bsn(bsn_file,"IPET", 2)
 modif_par_bsn(bsn_file,"EQROUTING", 4)
 modif_par_bsn(bsn_file,"BCFACTOR", 1)
@@ -183,7 +183,7 @@ modif_par_bsn(bsn_file,"BCFACTOR", 1)
 # List of sub-basins in which outputs are to be displayed
 sub_basins = c(19, 5, 20, 2, 21)
 
-l_out_files <- list.files(project_path, pattern="output", full.names = TRUE) # find the output files in the txtInOut
+l_out_files <- list.files(project_path, pattern = "output", full.names = TRUE) # find the output files in the txtInOut
 
 q_set   <- define_output(file = 'rch', variable = 'FLOW_OUT', unit = sub_basins)
 h_set   <- define_output(file = 'rch', variable = 'WAT_DEP', unit = sub_basins)
@@ -237,7 +237,7 @@ setpar_0 <- c()
 sim_0 <- run_swat2012(project_path = project_path, output = l_output,
                       parameter = setpar_0, output_interval = "d",
                       start_date = Date_ini, end_date = Date_fin,
-                      years_skip = 2, add_parameter=TRUE, keep_folder=F)
+                      years_skip = 2, add_parameter = TRUE, keep_folder = F)
 ```
 - **`{r Test Run}`**
 ```
@@ -276,9 +276,18 @@ Several functions are available in the tools_and_functions_global.R file to help
 All plotting functions use the plotly package for interactive visualization.
 
 **Available functions:**
-- `Graphstation()`
-- `Plot_calib_curve()`
-- `Plot_interannual()`
+- **`Graphstation()`**:
+  Displays simulated and observed time series (e.g., discharge or sediment) for a selected station
+
+
+
+
+- **`Plot_calib_curve()`**
+  Display the Q(h) and u(h) rating curves
+
+
+
+- **`Plot_interannual()`** 
 - `Plot_gof()`
 - `VAR_bound_ggPlot()`
 - `Temp_Analysis_ggPlot()` 
