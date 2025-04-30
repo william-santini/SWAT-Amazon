@@ -198,47 +198,65 @@ l_output  <- list(q = q_set, h = h_set, u = u_set, qsf = qsf_set, qss = qss_set)
 ```
 
 ### Prepare your Parameter Sets
-Parameter changes in a R notebook is already available thanks to parameter sets as described in [SWATplusR](https://github.com/chrisschuerz/SWATplusR).
+Parameter changes in a R notebook is already available thanks to parameter sets as described in [`SWATrunR`](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file).
 In `SWAT-Amazon`, 3 main parameter set are considered:
 
   - **setpar_test.R** is for testing changes
   - **setpar_bestcal.R** is for keeping the best simulation
   - **setpar_paral_tibble.R** is for parallel processing
 
-Example of parameter set for subbasin 21:
+Example of parameter set (setpar_bestcal) for subbasin 21:
 
 ```
+setpar_bestcal <- c(
   # Reach & flow routing
-    "CH_S2_sub21::CH_S2.rte  | change = absval | sub = 21" = 3.0e-05,
-    "CH_N2_sub21::CH_N2.rte  | change = absval | sub = 21" = 1/44, 
-    "CNCH_sub21::CNCH.rte    | change = absval | sub = 21" = 0.4,
-    "HCH_sub21::HCH.rte      | change = absval | sub = 21" = 14.5,
-    "CHD_sub21::CHD.rte      | change = absval | sub = 21" = 14.59,
-    "CH_W2_sub21::CHW2.rte   | change = absval | sub = 21" = 750,  
-    
+    "CH_S2_sub21::CH_S2.rte      | change = absval | sub = 21" = 3.0e-05,
+    "CH_N2_sub21::CH_N2.rte      | change = absval | sub = 21" = 1/44, 
+    "CNCH_sub21::CNCH.rte        | change = absval | sub = 21" = 0.4,
+    "HCH_sub21::HCH.rte          | change = absval | sub = 21" = 14.5,
+    "CHD_sub21::CHD.rte          | change = absval | sub = 21" = 14.59,
+    "CH_W2_sub21::CHW2.rte       | change = absval | sub = 21" = 750,  
     "FPGEOM_sub21::FPGEOM.rte    | change = absval | sub = 21" = 1,
     "THETAFP_sub21::THETA_FP.rte | change = absval | sub = 21" = 0.0002,
     "CNFP_sub21::CNFP.rte        | change = absval | sub = 21" = 1,
-    
-    # Sand routing    
+
+  # Sand routing    
     "DB_sub21::DB.rte            | change = absval | sub = 21" = 219.4, 
     "DSS_sub21::DSS.rte          | change = absval | sub = 21" = 80,
     "CBK_sub21::CBK.rte          | change = absval | sub = 21" = 188.1,
     "KCH_sub21::KCH.rte          | change = absval | sub = 21" = 0.01,
     "BETA_sub21::BETA.rte        | change = absval | sub = 21" = 1.64,
     "ETA_sub21::ETA.rte          | change = absval | sub = 21" = 6.95
+)
+```
 
+### Run the Model
+Use the `SWATrunR` function `run_swat2012()`.
+
+```{r First Run without any calibration}
+setpar_0 <- c()
+sim_0 <- run_swat2012(project_path = project_path, output = l_output,
+                              parameter = setpar_0, output_interval = "d",
+                              start_date = Date_ini, end_date = Date_fin,
+                              years_skip = 2, add_parameter=TRUE, keep_folder=F)
+```
+
+```{r Test Run}
+source("setpar_tests.R") # Call the corresponding parameter set
+
+sim_tests <- run_swat2012(project_path = project_path, output = l_output,
+                              parameter = setpar_tests, output_interval = "d",
+                              start_date = Date_ini, end_date = Date_fin,
+                              keep_folder = F, years_skip = 2)
 ```
 
 
 
 
 
-
-
-### Perform your Fisrt Run
-
 ### Plot
+
+### Analyze the model output
 
 ### Going further
 
@@ -246,7 +264,7 @@ Example of parameter set for subbasin 21:
 
 
 
-### Analyze the model output
+
 
 
 ## Calibration
