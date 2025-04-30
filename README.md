@@ -118,7 +118,7 @@ install.packages("remotes")
 remotes::install_github("chrisschuerz/SWATrunR")
 ```
 
-**It is highly recommended to learn the basics of the `SWATrunR` package before starting with `SWAT-Amazon`.**
+**!!! It is highly recommended to learn the basics of the `SWATrunR` package before starting with `SWAT-Amazon` !!!**
 
 ## Getting Started
 
@@ -231,7 +231,7 @@ setpar_bestcal <- c(
 ### Run the Model
 Use the `SWATrunR` function `run_swat2012()` to run `SWAT-Amazon`.
 
-- `{r First Run without any calibration}`
+- **`{r First Run without any calibration}`**
 ```
 setpar_0 <- c()
 sim_0 <- run_swat2012(project_path = project_path, output = l_output,
@@ -239,7 +239,7 @@ sim_0 <- run_swat2012(project_path = project_path, output = l_output,
                       start_date = Date_ini, end_date = Date_fin,
                       years_skip = 2, add_parameter=TRUE, keep_folder=F)
 ```
-- `{r Test Run}`
+- **`{r Test Run}`**
 ```
 source("setpar_tests.R") # load the corresponding parameter set
 
@@ -249,7 +249,7 @@ sim_tests <- run_swat2012(project_path = project_path, output = l_output,
                           keep_folder = F, years_skip = 2)
 ```
 
-- `{r Best calibration}`
+- **`{r Best calibration}`**
 ```
 source("setpar_bestcal.R")
 
@@ -259,7 +259,7 @@ sim_bestcal <- run_swat2012(project_path = project_path, output = l_output,
                             keep_folder = F, years_skip = 2)
 ```
 
-- `{r Parallel processing}`
+- **`{r Parallel processing}`**
 ```
 n <- 1000 # Number of runs
 source("setpar_paral_tibble.R")
@@ -278,13 +278,13 @@ In the `tools_and_functions_global.R` files, many functions ara available for pl
 - Plot_interannual()
 
 
-### Going further
-
-#### Sensitivity analysis
-
-
+### Going Further
 
 #### Calibration
+
+
+
+#### Sensitivity Analysis
 
 
 
@@ -292,11 +292,11 @@ In the `tools_and_functions_global.R` files, many functions ara available for pl
 Created by William Santini (william.santini@ird.fr)
 
 ## References
-Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, J.M.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, 2019.
+Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, J.M.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, **2019**.
 
-Santini, W.: Caractérisation de la dynamique hydro-sédimentaire du bassin de l’Ucayali (Pérou), par une approche intégrant réseau de mesures, télédétection et modélisation hydrologique, PhD thesis, Université Toulouse III - Paul Sabatier, Toulouse, France, 2020.
+Santini, W.: Caractérisation de la dynamique hydro-sédimentaire du bassin de l’Ucayali (Pérou), par une approche intégrant réseau de mesures, télédétection et modélisation hydrologique, PhD thesis, Université Toulouse III - Paul Sabatier, Toulouse, France, **2020**.
 
-Santini, W., Delort-Ylla, A., Martinez, J.M., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., & Molina-Carpio, J. (2025). Coupling Remote Sensing and Modelling for Hydro-Sediment Flux Monitoring in the Amazon Basin: The Ucayali Case Study. Submitted.
+Santini, W., Delort-Ylla, A., Martinez, J.M., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., & Molina-Carpio, J.: Coupling Remote Sensing and Modelling for Hydro-Sediment Flux Monitoring in the Amazon Basin: The Ucayali Case Study. **Submitted**.
 
 
 
