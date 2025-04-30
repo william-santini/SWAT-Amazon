@@ -407,11 +407,11 @@ Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
 #### Suggested Calibration Procedure
 
 The calibration strategy for stations with robust, long-term hydro-sediment monitoring is:
-- Start by calibrating Water Discharge (Q) in each reach, for warter levels h < CH_D only, using the SWAT’s default hydrologic parameters.
-- Calibrate Q, considering floodplain effects, using CH_D, CNFP and KFP (or THETA_fp).
-- Calibrate velocity (u) and water levels (h) by adjusting CH_N2 and CH_W2 only; Q is unaffected by this calibration.
-- Check the relationships Q(h) and u(h), revisiting step 3 if needed.
-- Compute the Qss(h,u,Q), independently of CH_N2 and CH_W2. If necessary, adjust Qss using parameters in Table 2, particularly DB, the most sensible parameter.
+1. Start by calibrating Water Discharge (Q) in each reach, for warter levels h < CH_D only, using the SWAT’s default hydrologic parameters.
+2. Calibrate Q, considering floodplain effects, using CH_D, CNFP and KFP (or THETA_fp).
+3. Calibrate velocity (u) and water levels (h) by adjusting CH_N2 and CH_W2 only; Q is unaffected by this calibration.
+4. Check the relationships Q(h) and u(h), revisiting step 3 if needed.
+5. Compute the Qss(h,u,Q), independently of CH_N2 and CH_W2. If necessary, adjust Qss using parameters in Table 2, particularly DB, the most sensible parameter.
 
 It is important to emphasize that the optimal calibration for water discharge may not align with the best calibration for water level, velocity, and sand load time series. A compromise must be made. 
 
