@@ -1,9 +1,4 @@
 # SWAT-Amazon
-* [Overview of the New Modules in SWAT-Amazon](#Overview-of-the-New-Modules-in-SWAT-Amazon)
-* [Installation](#Installation)
-* [Getting started](#Getting-started)
-* [Calibration](#Calibration)
-* [Contact](#Contact)
 
 `SWAT-Amazon` is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
 This modeling framework consists of a **Fortran-based executable (SWAT-Amazon.exe)**, derived from the standard SWAT2012 code, and an **R Notebook (SWAT-Amazon-Calib.Rmd)** designed to support the entire modeling workflow. 
@@ -280,7 +275,7 @@ All functions rely on the **`plotly`** package for interactive visualization.
 
 - **`Graphstation()`**  
   Displays simulated and observed time series for a selected variable (`h`, `u`, `Q`, `Qss`, `Qsf`, etc.) and station.  
-  It can show results from parallel simulations and sort them based on the best combinations of objective function scores.
+  It also show results from parallel simulations and sort them based on the best combinations of objective function scores.
 
 - **`Plot_calib_curve()`**  
   Plots the rating curves for a simulation and compares them with observed data. Useful for evaluating the consistency between simulated and measured discharge-sediment relationships.
@@ -407,10 +402,21 @@ Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
 
 #### Suggested Calibration Procedure
 
+The calibration strategy for stations with robust, long-term hydro-sediment monitoring is:
+- Start by calibrating Q in each reach, for 〖h< h〗_f only, using the SWAT’s default hydrologic parameters.
+- Calibrate Q, considering floodplain effects, using h_f, C_nfp and k_fp  (or θ_fp).
+- Calibrate u and h by adjusting n and B only; Q is unaffected by this calibration.
+- Check the relationships Q(h) and u(h), revisiting step 3 if needed.
+- Compute the Q_s (h,u,Q), independently of n and B. If necessary, adjust Q_s using parameters in Table 1, particularly d_b, the most sensible parameter.
 
+It is important to emphasize that the optimal calibration for water discharge may not align with the best calibration for water level, velocity, and sand load time series. A compromise must be made. 
+
+
+![image](https://github.com/user-attachments/assets/48a3b68e-17e6-4d47-91b4-8998d0f5cbdb)
 
 #### Sensitivity Analysis
 
+![image](https://github.com/user-attachments/assets/2c521f82-28f4-490b-8834-737a869be61c)
 
 
 ## Contact
