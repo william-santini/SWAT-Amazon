@@ -115,7 +115,7 @@ install.packages("remotes")
 remotes::install_github("chrisschuerz/SWATrunR")
 ```
 
-**!!! It is highly recommended to learn the basics of the `SWATrunR` package before starting with `SWAT-Amazon` !!!**
+⚠️ **Warning:** It is highly recommended to learn the basics of the `SWATrunR` package before starting with `SWAT-Amazon`
 
 ## Getting Started
 
@@ -407,18 +407,23 @@ Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
 #### Suggested Calibration Procedure
 
 The calibration strategy for stations with robust, long-term hydro-sediment monitoring is:
-- Start by calibrating Q in each reach, for 〖h< h〗_f only, using the SWAT’s default hydrologic parameters.
-- Calibrate Q, considering floodplain effects, using h_f, C_nfp and k_fp  (or θ_fp).
-- Calibrate u and h by adjusting n and B only; Q is unaffected by this calibration.
+- Start by calibrating Water Discharge (Q) in each reach, for warter levels h < CH_D only, using the SWAT’s default hydrologic parameters.
+- Calibrate Q, considering floodplain effects, using CH_D, CNFP and KFP (or THETA_fp).
+- Calibrate velocity (u) and water levels (h) by adjusting CH_N2 and CH_W2 only; Q is unaffected by this calibration.
 - Check the relationships Q(h) and u(h), revisiting step 3 if needed.
-- Compute the Q_s (h,u,Q), independently of n and B. If necessary, adjust Q_s using parameters in Table 1, particularly d_b, the most sensible parameter.
+- Compute the Qss(h,u,Q), independently of CH_N2 and CH_W2. If necessary, adjust Qss using parameters in Table 2, particularly DB, the most sensible parameter.
 
 It is important to emphasize that the optimal calibration for water discharge may not align with the best calibration for water level, velocity, and sand load time series. A compromise must be made. 
 
 
 #### Sensitivity Analysis
+This kind of analysis can be performed using the `Run-SWAT-Amazon.Rmd` notebook.  
+See the code chunk `{r Sensitivity Analysis - Sobol Method}` for an example.
+
+⚠️ **Warning:** This analysis is **computationally intensive** and may require significant time and resources, especially for large simulation sets.
 
 
+![image](https://github.com/user-attachments/assets/4a12f176-4e1c-4823-b95f-aa4ba51152b9)
 
 
 ## Contact
