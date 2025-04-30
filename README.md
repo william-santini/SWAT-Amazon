@@ -1,17 +1,16 @@
 # SWAT-Amazon
 
 `SWAT-Amazon` is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2025)]() 
-This modeling framework consists of a **Fortran-based executable (SWAT-Amazon.exe)**, derived from the standard SWAT2012 code, and an **R Notebook (SWAT-Amazon-Calib.Rmd)** designed to support the entire modeling workflow. 
+This modeling framework consists of a **Fortran-based executable (SWAT-Amazon.exe)**, derived from the standard SWAT2012 code, and an **R Notebook (Run-SWAT-Amazon.Rmd)** designed to support the entire modeling workflow. 
 This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures, with the [SWATrunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
 
 ![SWAT-Amazon](https://github.com/user-attachments/assets/6d56a93b-cc14-40bb-97d3-1bdc14e33412)
 
 
+## What's New in SWAT-Amazon?
 
-## Overview of the New Modules in SWAT-Amazon
-
-`SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `SWAT-Amazon-Calib`. A total of five routing options are available:
+`SWAT-Amazon` introduces several enhancements over the standard SWAT2012 model, particularly in the representation of water and sediment routing processes. Users can now select among multiple water routing methods by adjusting the `EQROUTING` parameter in the `.BSN` file. This selection can be managed directly from the R Notebook `Run-SWAT-Amazon.Rmd`. A total of five routing options are available:
 
 **Table 1:** Water Routing Methods in SWAT-Amazon
 
@@ -30,10 +29,10 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 > - A **rectangular cross-section**, defined by the width coefficient `KFP`;  
 > - A **triangular cross-section**, defined by the slope angle `THETA_FP`.  
 > The parameter `FPGEOM` controls the geometry:  
-> - `FPGEOM = 0`: rectangular floodplain;  
-> - `FPGEOM = 1`: triangular floodplain.
+> - `FPGEOM = 0`: rectangular floodplain cross-section;  
+> - `FPGEOM = 1`: triangular floodplain cross-section.
 
-**The sand and fine sediment routing method cannot be changed: `SWAT-Amazon` exclusively uses the new sediment routing modules developed for this version.** The default SWAT sediment routing method is not available due to extensive modifications to the original code.
+**The sand and fine sediment routing method cannot be changed: `SWAT-Amazon` exclusively uses the new sediment routing modules developed for this version.** The default SWAT sediment routing methods are not available due to extensive modifications to the original code.
 
 ### Parameter Description Table
 
@@ -65,25 +64,25 @@ This notebook enable model run, simulation analysis, interactive result visualiz
 
 ### Downloads
 
-- **`SWAT-Amazon.exe` executable**  
+- **`SWAT-Amazon.exe`**  
   Download the executable file and place it in your SWAT project working directory:  
   `your_project/scenarios/Default/TxtInOut/`  
   *No installation is required.*
 
-- **R Notebook**  
-  Download the R Notebook **SWAT-Amazon-Calib.RMD** and it dependency R scripts:
-  - **tools_and_functions_global.R**
+- **Run-SWAT-Amazon.Rmd**  
+  Download the R Notebook and it dependency R scripts:
+  - **tools_and_functions.R**
   - **setpar_test.R**
+  - **setpar_paral_test.R**
   - **setpar_bestcal.R**
-  - **setpar_paral_tibble.R**
   - **setpar_sensi.R**
 
 - **Supplementary files**  
   Download the required additional files to ensure proper execution of the model:
-  - `Template_Station_SWAT.xlsx` — Observation file to be placed in the same directory as the Notebook `SWAT-Amazon-Calib.Rmd`.
-  - `Qss_forcing.PRN` — Input file to force **Suspended Sand load** in reaches, if needed (to be placed in `TxtInOut`).
-  - `Qsf_forcing.PRN` — Input file to force **Suspended Fine load** in reaches, if needed (to be placed in `TxtInOut`).
-  - `hdwnstrm.TXT` — File containing **boundary water levels** for simulations using the Diffusive Wave option (to be placed in `TxtInOut`).
+  - **`station_obs.xlsx`** — **Observation file** to be placed in the same directory as the Notebook `Run-SWAT-Amazon.Rmd`
+  - **`Qss_forcing.PRN`** — Input file to force **Suspended Sand load** in reaches, if needed (to be placed in `TxtInOut`)
+  - **`Qsf_forcing.PRN`** — Input file to force **Suspended Fine load** in reaches, if needed (to be placed in `TxtInOut`).
+  - **`hdwnstrm.TXT`** — File containing **boundary water levels** for simulations using the Diffusive Wave option (to be placed in `TxtInOut`)
 
 > **Note:** The file `How_to_generate_inputs_files.TXT` provides instructions on how to create or modify the supplementary files listed above.
 
@@ -95,14 +94,14 @@ your_project/
 │   ├── Qss_forcing.PRN  
 │   ├── Qsf_forcing.PRN  
 │   ├── hdwnstrm.TXT  
-│   └── ... (all the txtInOut files generated by the standard SWAT2012 model) 
-├── SWAT-Amazon-Calib.Rmd  
-├── tools_and_functions_global.R  
+│   └── ... (all the txtInOut files generated by the standard SWAT2012 model)  
+├── Run-SWAT-Amazon.Rmd  
+├── tools_and_functions.R  
 ├── setpar_test.R  
 ├── setpar_bestcal.R  
-├── setpar_paral_tibble.R 
-├── setpar_sen.R   
-└── Template_Station_SWAT.xlsx  
+├── setpar_paral_test.R 
+├── setpar_sensi.R   
+└── station_obs.xlsx  
 
 ### Install `SWATrunR`
 
@@ -141,7 +140,7 @@ This can be done automatically using the code chunk `{r Adding new parameters in
 Use the Template_Station_SWAT.xlsx files to load the observed data in your R environement with the chunk `{r Loading observation data}`
 
 ```
-Obs_path <- "Template_Stations_SWAT.xlsx"
+Obs_path <- "Stations_obs.xlsx"
 
 Obs_station_template <- read_excel(Obs_path, sheet = "Your_Station",
                                    col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
@@ -154,8 +153,8 @@ Now, you can configure the simulation in the chunk `{r Parametring simulations}`
 
 - Setting simulation period 
 ```
-Date_ini <- as.Date("2008-01-01",  format = "%Y-%m-%d")
-Date_fin <- as.Date("2015-12-31",  format = "%Y-%m-%d")
+Date_ini <- as.Date("2000-01-01",  format = "%Y-%m-%d")
+Date_fin <- as.Date("2024-12-31",  format = "%Y-%m-%d")
 ```
 
 - Modification of the SWAT file `BASINS.BSN`
@@ -199,9 +198,9 @@ In `SWAT-Amazon`, 3 main parameter set are considered:
 
   - **setpar_test.R** is for testing changes
   - **setpar_bestcal.R** is for keeping the best simulation
-  - **setpar_paral_tibble.R** is for parallel processing
+  - **setpar_paral_test.R** is for parallel processing
 
-Example of parameter set (setpar_bestcal.R) for subbasin 21:
+Example of parameter set (setpar_bestcal.R) for a subbasin 21:
 
 ```
 setpar_bestcal <- c(
@@ -260,10 +259,10 @@ sim_bestcal <- run_swat2012(project_path = project_path, output = l_output,
 - **`{r Parallel processing}`**
 ```
 n <- 1000 # Number of runs
-source("setpar_paral_tibble.R")
+source("setpar_paral_test.R")
 
 sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
-                                 parameter = setpar_paral_tibble, output_interval = "d",
+                                 parameter = setpar_paral_test, output_interval = "d",
                                  start_date = Date_ini, end_date = Date_fin,
                                  years_skip = 2, n_thread = 8)
 ```
@@ -281,7 +280,8 @@ All functions rely on the **`plotly`** package for interactive visualization.
   It also show results from parallel simulations and sort them based on the best combinations of objective function scores.
 
 - **`Plot_calib_curve()`**  
-  Plots the rating curves for a simulation and compares them with observed data. Useful for evaluating the consistency between simulated and measured discharge-sediment relationships.
+  Plots the rating curves for a simulation and compares them with observed data.
+  Useful for evaluating the consistency between simulated and measured discharge-sediment relationships.
 
 - **`Plot_interannual()`**  
   Displays interannual simulations for a selected variable across years to highlight long-term trends or anomalies.
@@ -299,21 +299,22 @@ All functions rely on the **`plotly`** package for interactive visualization.
   Calculates objective functions (e.g., NSE, KGE, PBIAS) to assess model performance.
 
 - **`Plot_gof()`**  
-  Plots the results of the objective functions for visual comparison between simulations.
+  Plots the results of the objective functions calculated for each run of the parallel processing (e.g., NSE vs. KGE, NSE vs. PBIAS), allowing visual comparison between simulations and for selecting the best run.
 
 - **`VAR_bound_ggPlot()`**  
-  Generates plots for sensitivity analysis by displaying the impact of parameter bounds on model outputs.
+  Plots the simulation envelope (min–max range) from multiple runs of a Sobol Analysis, along with observed data and the best calibration. Useful for visualizing uncertainty and model variability over time.
 
 - **`Temp_Analysis_ggPlot()`**  
-  Visualizes temporal sensitivity analysis results to explore how sensitivity evolves over time.
+  Performs temporal sensitivity analysis using either the Morris or Sobol method, computing sensitivity indices (e.g., μ*, σ, first-order, total-order) for each time step across all simulations.  
+  The function supports chunk-based **parallel processing** for high-dimensional outputs and returns both a `ggplot` object and raw sensitivity data. Particularly useful for identifying time-dependent parameter influence in dynamic models.
 
 
-**Example of use for  subbasin 5 with the chunk `{r Display results @ 5}`**  
+**Example of use for subbasin 5 with the chunk `{r Display results @ 5}`**  
 
 ```
 # To be configured:
 station_name = "XXX"
-code_station = "5"       # station code in Template_Station_SWAT.xlsx  (observations)
+code_station = "5"       # station code in station_obs.xlsx  (observations file)
 n_sub = 5                # subbasin number
 sim_name = "sim_tests"   # simulation to display in inter-annual graph and rating curve
 
