@@ -66,8 +66,7 @@ A total of five routing options are available:
 ### Downloads
 
 - **`SWAT-Amazon.exe`**  
-  Download the executable file and place it in your SWAT project working directory:  
-  `your_project/scenarios/Default/TxtInOut/`  
+  Download the executable file and place it in your `TxtInOut`.
   *No installation is required.*
 
 - **`Run-SWAT-Amazon.Rmd`**  
