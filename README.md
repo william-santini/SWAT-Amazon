@@ -271,11 +271,21 @@ sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
 ```
 
 ### Display and Analyse Results
-In the `tools_and_functions_global.R` files, many functions ara available for plotting the results. This function where not placed in a package for allowing the user to modificate/complete them easily. All use the plottly package for interactive visualization.
+Several functions are available in the tools_and_functions_global.R file to help visualize and analyze simulation outputs. These functions are **not included in a package** to allow users to **easily modify or extend** them according to their needs.
 
-- Graphstation()
-- Plot_calib_curve()
-- Plot_interannual()
+All plotting functions use the plotly package for interactive visualization.
+
+**Available functions:**
+- `Graphstation()`
+- `Plot_calib_curve()`
+- `Plot_interannual()`
+- `Plot_gof()`
+- `VAR_bound_ggPlot()`
+- `Temp_Analysis_ggPlot()` 
+- `monthly_average()`
+- `Compute_day_interannual()`
+- `Compute_month_interannual()`
+- `Compute_gof()`
 
 
 ### Going Further
