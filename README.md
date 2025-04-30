@@ -278,9 +278,7 @@ All plotting functions use the plotly package for interactive visualization.
 **Available functions:**
 - **`Graphstation()`**  
   Displays simulated and observed time series (e.g., discharge or sediment) for a selected station
-
-
-
+  
 
 - **`Plot_calib_curve()`**  
   Display the Q(h) and u(h) rating curves
@@ -295,6 +293,35 @@ All plotting functions use the plotly package for interactive visualization.
 - `Compute_day_interannual()`
 - `Compute_month_interannual()`
 - `Compute_gof()`
+
+
+**Example of use in a chunk `{r Display results @ 5}`**  
+
+  ```
+  station_name = "Requena"
+  code_station = "REQ"       # station code in the Excel template (obervations)
+  n_sub = 21                 # subbasin (n°)
+  sim_name = "sim_tests"     # simulation to display in inter-annual graph and rating curve
+
+  Obs_template = eval(parse(text = paste0("Obs_", code_station, "_template")))
+  obs_h <- data.frame(Obs_template$Date, ah * Obs_template$h_obs/100 + dh)
+
+  Graphstation(station_name,"h", obs_h, gaug_h,
+             eval(parse(text = paste0("sim_0$simulation$h_", n_sub))),
+             eval(parse(text = paste0("sim_tests$simulation$h_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$h_", n_sub))),
+             eval(parse(text = paste0("sim_tests_tibble$simulation$h_", n_sub))) )
+
+
+  ```
+
+
+
+
+
+
+
+
 
 
 ### Going Further
