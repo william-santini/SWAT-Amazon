@@ -160,7 +160,7 @@ Date_ini <- as.Date("2008-01-01",  format = "%Y-%m-%d")
 Date_fin <- as.Date("2015-12-31",  format = "%Y-%m-%d")
 ```
 
-- Modification of the files `BASINS.BSN`
+- Modification of the SWAT file `BASINS.BSN`
 ```
 bsn_file <- list.files(project_path,pattern =".bsn",full.names=TRUE)
 modif_par_bsn(bsn_file,"IPET", 2)
@@ -168,9 +168,9 @@ modif_par_bsn(bsn_file,"EQROUTING", 4)
 modif_par_bsn(bsn_file,"BCFACTOR", 1)
 ```
 
-- Routing headwaters or not: modifying the `FILE.CIO`:
+- Routing headwaters or not: modifying the SWAT file `FILE.CIO`:
 ```
-# Function to be written... need to be manually changed in the FILE.CIO file
+# Function to be written... the FILE.CIO file need to be manually modificated:
 # By default, headwaters are not routed in SWAT2012
 # I_SUBW = 0 : Default value: Headwaters are not routed (and it is not possible to force the Qss and Qsf with the .PRN files)
 # I_SUBW = 1 : Headwaters are routed (and Qss or Qsf can be forced if required with the .PRN files)
@@ -229,7 +229,7 @@ setpar_bestcal <- c(
 ```
 
 ### Run the Model
-Use the `SWATrunR` function `run_swat2012()`.
+Use the `SWATrunR` function `run_swat2012()` to run `SWAT-Amazon`.
 
 - `{r First Run without any calibration}`
 ```
@@ -250,8 +250,7 @@ sim_tests <- run_swat2012(project_path = project_path, output = l_output,
 ```
 
 - `{r Best calibration}`
-```{r Best calibration, include=FALSE}
-
+```
 source("setpar_bestcal.R")
 
 sim_bestcal <- run_swat2012(project_path = project_path, output = l_output,
@@ -271,10 +270,13 @@ sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
                                  years_skip = 2, n_thread = 8)
 ```
 
+### Display and Analyse Results
+In the `tools_and_functions_global.R` files, many functions ara available for plotting the results. This function where not placed in a package for allowing the user to modificate/complete them easily. All use the plottly package for interactive visualization.
 
-### Plot
+- Graphstation()
+- Plot_calib_curve()
+- Plot_interannual()
 
-### Analyze the model output
 
 ### Going further
 
@@ -282,31 +284,8 @@ sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
 
 
 
+#### Calibration
 
-
-
-## Calibration
-
-
-### Input files
-A new feature from `SWATplusHybam` is the ability to handle observed data, in order to use them as limit conditions or to do data assimilation for example. This observed data has to come as a .txt file and has it's type has to be specified in the functions Below.
-```r
-setup_input_files(project_path, list("hbc.txt;hyd;1", "Qsf_lag.txt;sands;1"))
-```
-"hbc.txt" is the file with the observations, "hyd" is the type of file (see below) and "1" is the reach where your observed data has been measured.
-
-
-Only three types are available for now but some might be added later. You can currently provide a water, sand or wash load limit condition file or files for data assimilation (in progress).
-```r
-q_sim_day <- run_swatplus(project_path = project_path,
-                         output = define_output(file = "channel_sd",
-                                                 variable = "flo_out",
-                                                 unit = 1),
-                         start_date = "2013-1-1",
-                         end_date = "2018-1-1",
-                         years_skip = 2)
-                         parameter = par_single)
-```
 
 
 ## Contact
