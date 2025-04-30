@@ -145,10 +145,10 @@ Use the Template_Station_SWAT.xlsx files to load the observed data in your R env
 ```
 Obs_path <- "Template_Stations_SWAT.xlsx"
 
-Obs <- read_excel(Obs_path, sheet = "Your_Station",
-                  col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
-                                "date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
-                                "numeric", "numeric", "numeric","numeric","numeric","numeric"))
+Obs_station_template <- read_excel(Obs_path, sheet = "Your_Station",
+                                   col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
+                                   "date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
+                                   "numeric", "numeric", "numeric","numeric","numeric","numeric"))
 ```
 
 ### Configure Simulation
@@ -295,23 +295,96 @@ All plotting functions use the plotly package for interactive visualization.
 - `Compute_gof()`
 
 
-**Example of use in a chunk `{r Display results @ 5}`**  
+**Example of use for  subbasin 5 with the chunk `{r Display results @ 5}`**  
 
   ```
-  station_name = "Requena"
-  code_station = "REQ"       # station code in the Excel template (obervations)
-  n_sub = 21                 # subbasin (n°)
-  sim_name = "sim_tests"     # simulation to display in inter-annual graph and rating curve
+# To be configured:
+station_name = "XXX"
+code_station = "5"       # station code in Template_Station_SWAT.xlsx  (observations)
+n_sub = 5                # number of subbasin
+sim_name = "sim_tests"   # simulation to display in inter-annual graph and rating curve
 
-  Obs_template = eval(parse(text = paste0("Obs_", code_station, "_template")))
-  obs_h <- data.frame(Obs_template$Date, ah * Obs_template$h_obs/100 + dh)
+# Observations
+Obs_template = eval(parse(text = paste0("Obs_", code_station, "_template")))
+obs_h <- data.frame(Obs_template$Date, Obs_template$h_obs)
+obs_u <- data.frame(Obs_template$Date, Obs_template$u_obs)
+obs_Q <- data.frame(Obs_template$Date, Obs_template$Q_obs)
+obs_Qss <- data.frame(Obs_template$Date, Obs_template$Qss_obs*10^(6))
 
-  Graphstation(station_name,"h", obs_h, gaug_h,
+# Gaugings (punctual measurements)
+gaug_h <- data.frame(Obs_template$Date_gauging, Obs_template$h_gauging)
+gaug_u <- data.frame(Obs_template$Date_gauging, Obs_template$u_gauging)
+gaug_Q <- data.frame(Obs_template$Date_gauging, Obs_template$Q_gauging)
+gaug_Qss <- data.frame(Obs_template$Date_gauging, Obs_template$Qss_gauging*10^(6))
+
+# Display time-series results
+Graphstation(station_name,"h", obs_h, gaug_h,
              eval(parse(text = paste0("sim_0$simulation$h_", n_sub))),
              eval(parse(text = paste0("sim_tests$simulation$h_", n_sub))),
              eval(parse(text = paste0("sim_bestcal$simulation$h_", n_sub))),
              eval(parse(text = paste0("sim_tests_tibble$simulation$h_", n_sub))) )
 
+Graphstation(station_name,"u", obs_u, gaug_u,
+             eval(parse(text = paste0("sim_0$simulation$u_", n_sub))),
+             eval(parse(text = paste0("sim_tests$simulation$u_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$u_", n_sub))),
+             eval(parse(text = paste0("sim_tests_tibble$simulation$u_", n_sub))) )
+
+Graphstation(station_name,"Q", obs_Q, gaug_Q,
+             eval(parse(text = paste0("sim_0$simulation$q_", n_sub))), 
+             eval(parse(text = paste0("sim_tests$simulation$q_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$q_", n_sub))),
+             eval(parse(text = paste0("sim_tests_tibble$simulation$q_", n_sub))) )
+
+Graphstation(station_name,"Qss", obs_Qss, gaug_Qss,
+             eval(parse(text = paste0("sim_0$simulation$qss_", n_sub))),
+             eval(parse(text = paste0("sim_tests$simulation$qss_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$qss_", n_sub))),
+             eval(parse(text = paste0("sim_tests_tibble$simulation$qss_", n_sub))) )
+
+# Display inter-annual results
+variablename <- "h" 
+obs <- data.frame(Obs_template$Date, Obs_template$h_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+ 
+variablename <- "u"
+obs <- data.frame(Obs_template$Date, Obs_template$u_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$u_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$u_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+ 
+variablename <- "Q"
+obs <- data.frame(Obs_template$Date, Obs_template$Q_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$Q_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$Q_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+
+variablename <- "Qss"
+obs <- data.frame(Obs_template$Date, Obs_template$Qss_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$Qss_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$Qss_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+
+# Rating curves
+gaug_hQ <- data.frame(Obs_template$h_gauging, Obs_template$Q_gauging)
+obs_hQ  <- data.frame(Obs_template$h_obs, Obs_template$Q_obs)
+sim_hQ  <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$run_1,
+                      eval(parse(text = paste0(sim_name, "$simulation$q_", n_sub)))$run_1 )
+
+gaug_hu <- data.frame(Obs_template$h_gauging, Obs_template$u_gauging)
+obs_hu  <- data.frame(Obs_template$h_obs, Obs_template$u_obs)
+sim_hu  <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$run_1,
+                      eval(parse(text = paste0(sim_name, "$simulation$u_", n_sub)))$run_1 )
+
+
+Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
+                              "h","u",gaug_hu, obs_yx_2 = obs_hu, sim_hu)
 
   ```
 
