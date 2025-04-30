@@ -271,29 +271,30 @@ sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
 ```
 
 ### Display and Analyse Results
-Several functions are available in the tools_and_functions_global.R file to help visualize and analyze simulation outputs. These functions are **not included in a package** to allow users to **easily modify or extend** them according to their needs.
 
-All plotting functions use the plotly package for interactive visualization.
+Several functions are available in the `tools_and_functions_global.R` file to help visualize and analyze simulation outputs. These functions are **not included in a package**, so users can **easily modify or extend** them as needed.
 
-**Available functions:**
+All functions rely on the **`plotly`** package for interactive visualization.
+
+#### Available functions:
+
 - **`Graphstation()`**  
-  Displays simulated and observed time series (e.g., discharge or sediment) for a selected station
-  
+  Displays simulated and observed time series for a selected variable (`h`, `u`, `Q`, `Qss`, `Qsf`, etc.) and station.  
+  It can show results from parallel simulations and sort them based on the best combinations of objective function scores.
 
 - **`Plot_calib_curve()`**  
-  Display the Q(h) and u(h) rating curves
+  Plots the rating curves for a simulation and compares them with the observed data. Useful for evaluating the consistency between simulated and measured discharge-sediment relationships.
 
+- **`Plot_interannual()`**  
+  Displays interannual simulations.
 
-
-- **`Plot_interannual()`**   
-- `Plot_gof()`
-- `VAR_bound_ggPlot()`
-- `Temp_Analysis_ggPlot()` 
 - `monthly_average()`
 - `Compute_day_interannual()`
 - `Compute_month_interannual()`
 - `Compute_gof()`
-
+- `Plot_gof()`
+- `VAR_bound_ggPlot()`
+- `Temp_Analysis_ggPlot()` 
 
 **Example of use for  subbasin 5 with the chunk `{r Display results @ 5}`**  
 
@@ -301,7 +302,7 @@ All plotting functions use the plotly package for interactive visualization.
 # To be configured:
 station_name = "XXX"
 code_station = "5"       # station code in Template_Station_SWAT.xlsx  (observations)
-n_sub = 5                # number of subbasin
+n_sub = 5                # subbasin number
 sim_name = "sim_tests"   # simulation to display in inter-annual graph and rating curve
 
 # Observations
@@ -388,18 +389,9 @@ Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
 
   ```
 
-
-
-
-
-
-
-
-
-
 ### Going Further
 
-#### Calibration
+#### Suggested Calibration Procedure
 
 
 
