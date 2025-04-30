@@ -140,7 +140,7 @@ This can be done automatically using the code chunk `{r Adding new parameters in
 Use the Template_Station_SWAT.xlsx files to load the observed data in your R environement with the chunk `{r Loading observation data}`
 
 ```
-Obs_path <- "Stations_obs.xlsx"
+Obs_path <- "stations_obs.xlsx"
 
 Obs_station_template <- read_excel(Obs_path, sheet = "Your_Station",
                                    col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
