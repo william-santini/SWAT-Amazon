@@ -265,12 +265,12 @@ sim_bestcal <- run_swat2012(project_path = project_path, output = l_output,
 - **`{r Parallel processing}`**
 ```
 n <- 1000 # Number of runs
-source("setpar_paral_test.R")
 
-sim_tests_tibble <- run_swat2012(project_path = project_path, output = l_output,
-                                 parameter = setpar_paral_test, output_interval = "d",
-                                 start_date = Date_ini, end_date = Date_fin,
-                                 years_skip = 2, n_thread = 8)
+sim_paral_test <- run_swat2012(project_path = project_path, output = l_output,
+                               parameter = setpar_paral_test, output_interval = "d",
+                               start_date = Date_ini, end_date = Date_fin,
+                               years_skip = 2, n_thread = 8)
+
 ```
 
 ### Display and Analyse Results
@@ -348,25 +348,25 @@ Graphstation(station_name,"h", obs_h, gaug_h,
              eval(parse(text = paste0("sim_0$simulation$h_", n_sub))),
              eval(parse(text = paste0("sim_tests$simulation$h_", n_sub))),
              eval(parse(text = paste0("sim_bestcal$simulation$h_", n_sub))),
-             eval(parse(text = paste0("sim_tests_tibble$simulation$h_", n_sub))) )
+             eval(parse(text = paste0("sim_paral_test$simulation$h_", n_sub))) )
 
 Graphstation(station_name,"u", obs_u, gaug_u,
              eval(parse(text = paste0("sim_0$simulation$u_", n_sub))),
              eval(parse(text = paste0("sim_tests$simulation$u_", n_sub))),
              eval(parse(text = paste0("sim_bestcal$simulation$u_", n_sub))),
-             eval(parse(text = paste0("sim_tests_tibble$simulation$u_", n_sub))) )
+             eval(parse(text = paste0("sim_paral_test$simulation$u_", n_sub))) )
 
 Graphstation(station_name,"Q", obs_Q, gaug_Q,
              eval(parse(text = paste0("sim_0$simulation$q_", n_sub))), 
              eval(parse(text = paste0("sim_tests$simulation$q_", n_sub))),
              eval(parse(text = paste0("sim_bestcal$simulation$q_", n_sub))),
-             eval(parse(text = paste0("sim_tests_tibble$simulation$q_", n_sub))) )
+             eval(parse(text = paste0("sim_paral_test$simulation$q_", n_sub))) )
 
 Graphstation(station_name,"Qss", obs_Qss, gaug_Qss,
              eval(parse(text = paste0("sim_0$simulation$qss_", n_sub))),
              eval(parse(text = paste0("sim_tests$simulation$qss_", n_sub))),
              eval(parse(text = paste0("sim_bestcal$simulation$qss_", n_sub))),
-             eval(parse(text = paste0("sim_tests_tibble$simulation$qss_", n_sub))) )
+             eval(parse(text = paste0("sim_paral_test$simulation$qss_", n_sub))) )
 
 # Display inter-annual results
 variablename <- "h" 
