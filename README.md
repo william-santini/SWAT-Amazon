@@ -443,11 +443,11 @@ See the code chunk `{r Sensitivity Analysis - Sobol Method}` for an example.
 Created by William Santini (william.santini@ird.fr) and Alexandre Delort-Ylla (alexandre.delort-ylla@ird.fr).
 
 ## References
-Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, J.M.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, **2019**.
+Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Carranza, J., Paredes, M. A., Pérez Arévalo, J. J., Arévalo, N., Espinoza Villar, R., Julien, F., and Martinez, J.M.: An index concentration method for suspended load monitoring in large rivers of the Amazonian foreland, Earth Surface Dynamics, 7, 515–536, https://doi.org/10.5194/esurf-7-515-2019, 2019.
 
-Santini, W.: Caractérisation de la dynamique hydro-sédimentaire du bassin de l’Ucayali (Pérou), par une approche intégrant réseau de mesures, télédétection et modélisation hydrologique, PhD thesis, Université Toulouse III - Paul Sabatier, Toulouse, France, **2020**.
+Santini, W.: Caractérisation de la dynamique hydro-sédimentaire du bassin de l’Ucayali (Pérou), par une approche intégrant réseau de mesures, télédétection et modélisation hydrologique, PhD thesis, Université Toulouse III - Paul Sabatier, Toulouse, France, 2020.
 
-Santini, W., Delort-Ylla, A., Martinez, J.M., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., & Molina-Carpio, J.: Coupling Remote Sensing and Modelling for Hydro-Sediment Flux Monitoring in the Amazon Basin: The Ucayali Case Study. **Submitted**.
+Santini, W., Delort-Ylla, A., Martinez, J.M., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., & Molina-Carpio, J.: Coupling Remote Sensing and Modelling for Hydro-Sediment Flux Monitoring in the Amazon Basin: The Ucayali Case Study. Submitted.
 
 
 
