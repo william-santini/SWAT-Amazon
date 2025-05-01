@@ -289,7 +289,8 @@ All functions rely on the **`plotly`** package for interactive visualization.
 
   It also show results from parallel simulations and sort them based on the best combinations of objective function scores.
 
-  
+![newplot (5)](https://github.com/user-attachments/assets/141a61e6-21e9-4351-a278-ddbf7baf38c0)
+
 
 - **`Plot_calib_curve()`**  
   Plots the rating curves for a simulation and compares them with observed data.
