@@ -1,0 +1,21 @@
+Exclusive Scientific Use License
+Copyright (c) 2025 William Santini et al.
+
+Terms of Use
+Exclusive Scientific Use
+This code, data, and/or associated files (hereinafter referred to as the "Material") are provided for scientific research purposes only. 
+Any commercial use, including sale, redistribution for commercial purposes, or integration into commercial products, is prohibited.
+
+Mandatory Citation
+Any use of the Material in scientific works (publications, theses, reports, presentations, etc.) must include the following citation:
+
+Santini, W., Delort-Ylla, A., Martinez, J.M., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., & Molina-Carpio, J.: "Coupling Remote Sensing and Modelling for Hydro-Sediment Flux Monitoring in the Amazon Basin: The Ucayali Case Study". Submitted.
+
+No Modification or Unauthorized Redistribution
+Modification, reproduction, or redistribution of the Material beyond the intended scientific use is prohibited without prior explicit permission from the authors.
+
+Responsibility and Warranty
+The Material is provided "as is," without any warranty of any kind, express or implied, including but not limited to any implied warranty of merchantability or fitness for a particular purpose. The authors are not responsible for any consequences resulting from the use of the Material.
+
+Access and Redistribution
+You are allowed to share the Material with other researchers as part of scientific collaborations, provided that you comply with the terms of this license, especially the obligation to cite the aforementioned article.
