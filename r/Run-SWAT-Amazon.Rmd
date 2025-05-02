@@ -1,0 +1,455 @@
+---
+title: "Run-SWAT-Amazon"
+author: "William Santini & Alexandre Delort-Ylla (IRD)"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    number_sections: true
+---
+
+```{r Credits, echo=TRUE}
+
+# -------------------------------------------------------------------
+# SWAT-Amazon R Notebook
+# Authors: William Santini & Alexandre Delort-Ylla (IRD)
+# Version: August 2024
+# Description:
+#     This R Notebook allows the execution and calibration of the SWAT2012
+#     model over the Amazon Basin using the SWATrunR package.
+# Package used:
+#     SWATrunR (Schürz et al., 2019)
+# Citation (please cite if used):
+#     Santini, W., Delort-Ylla, A., Martinez, J.M., Lavado, W., Camenen, B.,
+#     Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., & Molina-Carpio, J.:
+#     Coupling Remote Sensing and Modelling for Hydro-Sediment Flux 
+#     Monitoring in the Amazon Basin: The Ucayali Case Study. Submitted.
+# -------------------------------------------------------------------
+
+```
+
+```{r Load packages, include=FALSE}
+### Install SWATrunR -----------------------------------------------------------
+# If the package remotes is not installed, please run first:
+# install.packages("remotes")
+# remotes::install_github("chrisschuerz/SWATrunR")
+
+### Data Manipulation and Management -------------------------------------------
+library(dplyr)         # Data manipulation (filtering, grouping, etc.)
+library(tibble)        # Data frame manipulation with modern syntax
+library(data.table)    # Data manipulation for large datasets with fast syntax
+library(stringr)       # String manipulation
+library(tidyr)         # Data transformation and cleaning
+library(lubridate)     # Date and time handling
+library(purrr)         # Functional programming tools (map functions, etc.)
+library(readxl)        # Reading Excel files
+library(WriteXLS)      # Writing data to Excel files (.xls)
+library(writexl)       # Writing data to Excel files (.xlsx)
+library(imputeTS)      # Time series imputation for missing values
+
+### Sensitivity Analysis and Simulation ----------------------------------------
+library(sensitivity)   # Sensitivity analysis (Morris, Sobol methods, etc.)
+library(sensobol)      # Sobol indices computation for sensitivity analysis
+library(lhs)           # Latin Hypercube Sampling for sensitivity analysis
+library(SWATrunR)      # SWAT model simulation management and execution
+
+### Data Visualization ---------------------------------------------------------
+library(ggplot2)       # Data visualization with ggplot2
+library(plotly)        # Interactive plots creation
+library(htmlwidgets)   # Embedding interactive objects into HTML documents
+library(patchwork)     # Combining multiple ggplot2 plots into a single figure
+
+### Parallel Computing and Performance -----------------------------------------
+library(future)        # Parallel computing management
+library(future.apply)  # Parallel application of functions
+library(furrr)         # Integration of purrr with future for parallel computing
+
+### Miscellaneous Utilities ----------------------------------------------------
+library(hydroGOF)      # Time series comparison (statistical tests, performance indices)
+library(tictoc)        # Function timing for performance tracking
+
+```
+
+```{r General parameters}
+
+### Setting the Working Directory ----------------------------------------------
+
+setwd("D:/SWAT+_HyBAm/SWAT_Amazon/r")
+
+### Loading the Notebook's functions -------------------------------------------
+
+source("tools_and_functions.R")
+
+### Loading the SWAT's TxtInOut ------------------------------------------------
+
+project_path <- "D:/SWAT+_HyBAm/SWAT_Amazon/demo/TxtInOut"
+
+### Graphical options ----------------------------------------------------------
+
+Listcol <- c("#000000", "#E69F00", "#56B4E9", "#F0E442", "#009E73",  "#0072B2",
+             "#D55E00", "#CC79A7", "#00AFBB")
+
+
+```
+
+```{r Adding new parameters in txtInOut files, include=FALSE}
+#---------------------------------------------------------------------------------------------------
+# Add SWAT-Amazon parameters to TxtInOut files used in the new Fortran modules
+# This process should be run ONLY ONCE when initializing a new SWAT project with fresh TxtInOut files.
+# The following TxtInOut files can be modified: .bsn, .hru, .sub, .rte, etc.
+# You can update these files using the Notebook function: write_new_prmt().
+# 
+# Function Syntax:
+# write_new_prmt(path_file, line_insert, new_par_name, par_describe, par_dflt_val, par_precision)
+# 
+# Parameters:
+#   - path_file: The file path to the TxtInOut file that needs modification.
+#   - line_insert: The line number where the new parameter should be inserted.
+#   - new_par_name: The name of the new parameter to be added.
+#   - par_describe: A brief description of the new parameter.
+#   - par_dflt_val: The default value to assign to the new parameter.
+#   - par_precision: The precision/format of the new parameter (e.g., number of decimal places).
+#---------------------------------------------------------------------------------------------------
+
+### .rte files
+
+ l_files <- list.files(project_path, pattern = ".rte", full.names = TRUE )
+ l_files <- l_files[!grepl("output", l_files, ignore.case = TRUE)]
+
+
+for (path_file in l_files){
+
+  # Flow routing (SWAT-HyBAm)
+
+  print(write_new_prmt(path_file, 2,"FORCE_CK","To force Ck wave when Cd wave option is enabled (0: Cd; 1:Ck)", 0, 0))
+
+  print(write_new_prmt(path_file, 3,"ALPHA","Coef for infra-day calculus 0.2 < ALPHA < 0.7 (Bates et al., 2010)", 0.5, 2))
+
+  print(write_new_prmt(path_file, 4,"CHGEOM","Channel cross-section geom -> rect = 0;  triang = 1", 0, 0))
+
+  print(write_new_prmt(path_file, 5,"FPGEOM","Flooplain cross-section geom -> rect:0 / triang:1", 0, 0))
+
+  print(write_new_prmt(path_file, 6,"KFP","Coefficient to determine the floodplain width: W_fp= k_fp  B (case of floodplain with rectangular cross-section) [-]", 5, 2))
+
+  print(write_new_prmt(path_file, 7,"THETA_FP","Angle of the floodplain riverward slope (case of floodplain with triangular cross-section) [rad]", 0.0001, 5))
+
+  print(write_new_prmt(path_file, 8,"CNFP","Coefficient for increasing the flow resistance in the main channel when the floodplain is active [-]", 0, 2))
+
+  print(write_new_prmt(path_file, 9,"CNCH","Coefficient for increasing the flow resistance in the main channel when low waters [-]", 0, 2))
+
+  print(write_new_prmt(path_file, 10,"HCH","Water level as: if (h < hch) nch = 1 + cnch * (hch - h)/h) * nch  [m]", 0, 2))
+
+
+  # Sand routing (SWAT-Amazon)
+  print(write_new_prmt(path_file, 11,"NU","Kinematic water viscosity [10-6 m/s]", 0.841, 3))
+
+  print(write_new_prmt(path_file, 12,"S","Relative sand density [-]", 2.65, 2))
+
+  print(write_new_prmt(path_file, 13,"SIGMA","Coefficient to determine Ks_skin = Sigma * db [-]", 2.5, 2))
+
+  print(write_new_prmt(path_file, 14,"DB"," Arithmetic mean diameter of riverbed sands [10-6 m]", 200, 1))
+
+  print(write_new_prmt(path_file, 15,"DSS","Arithmetic mean diameter of suspended sands [10-6 m]", 80, 1))
+
+  print(write_new_prmt(path_file, 16,"CBK","Constant concentration of bank and bar inputs  [mg l-1]", 250, 1))
+
+  print(write_new_prmt(path_file, 17,"KCH","Main channel susceptibility to erosion (riverbed only) [0 - 1] [-]", 0, 2))
+
+  print(write_new_prmt(path_file, 18,"BETA","Ratio of suspended sand to eddy diffusivity [-]", 1, 2))
+
+  print(write_new_prmt(path_file, 19,"FORCE_BETA","0: Santini et al. (2019) law for BETA; 1: To force BETA", 1, 2))
+
+  print(write_new_prmt(path_file, 20,"ETA","Correction exp. for transport capacity when the floodplain is active [-]", 3, 3))
+
+  # Washload routing (SWAT-Amazon)
+
+  #...
+
+
+    }
+
+### .bsn file
+
+ l_files <- list.files(project_path, pattern = ".bsn", full.names = TRUE )
+ l_files <- l_files[!grepl("output", l_files, ignore.case = TRUE)]
+
+
+ for (path_file in l_files){
+
+  print(write_new_prmt(path_file,58,"EQROUTING","Water routing method 0=VSM 1=MUSK 2= MUSKKVAR 3=Ck 4=Cd", 4, 0))
+
+  print(write_new_prmt(path_file,59,"BCFACTOR","Factor for boundary condition when Cd wave is used [-]", 1.3, 2))
+
+   }
+
+```
+
+```{r Load Observed Data}
+
+# Use the Template_Station_SWAT.xlsx files to load the observed data in your R environement
+
+Obs_path <- "D:/SWAT+_HyBAm/SWAT_Amazon/inputs_files/stations_obs.xlsx"
+
+Obs_STATION_NAME_template <- read_excel(Obs_path, sheet = "STATION_NAME",
+                                   col_types = c("date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
+                                   "date", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
+                                   "numeric", "numeric", "numeric","numeric","numeric","numeric"))
+
+
+# Repeat the same code for the other stations with available data.
+
+
+```
+
+```{r Parametring simulations, message=FALSE, warning=FALSE, include=FALSE}
+
+### Setting simulation period --------------------------------------------------
+Date_ini <- as.Date("2008-01-01",  format = "%Y-%m-%d")
+Date_fin <- as.Date("2015-12-31",  format = "%Y-%m-%d")
+
+### Initial date for graph outputs (graphs will start from this date) ----------
+Date_ini_skip <- as.Date("2010-01-01",  format = "%Y-%m-%d")
+
+### Setting BASINS.BSN ---------------------------------------------------------
+
+# Warning! Changes on BASINS.BSN doesn't work with SWATrunR: 
+# --> Use the function: modif_par_bsn(project_path, par_name, new_value)
+
+# List of main parameters to define in BASINS.BSN:
+        # IPET: PET method: 0=priest-t, 1=pen-m, 2=har, 3=read into model
+        # EQROUTING: water routing method 0=VSM 1=MUSK 2= MUSKKVAR 3=Ck 4=Cd
+        # NB: IRTE is not working anymore with SWAT_HyBAm (use EQROUTING)
+        # BCFACTOR: Factor for boundary condition when Cd wave is used [-]
+
+bsn_file <- list.files(project_path,pattern =".bsn",full.names=TRUE)
+modif_par_bsn(bsn_file,"IPET", 2)
+modif_par_bsn(bsn_file,"EQROUTING", 4)
+modif_par_bsn(bsn_file,"BCFACTOR", 1)
+
+
+### Routing headwaters or not: FILE.CIO ----------------------------------------
+
+# Function to be written... the FILE.CIO file needs to be manually modified:
+# By default, headwaters are not routed in SWAT2012.
+# I_SUBW = 0 : Default value — headwaters are not routed (Qss and Qsf cannot be forced using .PRN files).
+# I_SUBW = 1 : Headwaters are routed (Qss or Qsf can be forced if needed using .PRN files).
+# Note: Qss and Qsf forcing is done via the Qss_forcing.PRN or Qsf_forcing.PRN input files.
+
+
+### Setting outputs  -------------------------------------------------------------
+
+# List of subbasins in which outputs are to be displayed
+sub_basins = seq(1, 23, 1)
+
+l_out_files <- list.files(project_path, pattern = "output", full.names = TRUE)
+
+h_set   <- define_output(file = 'rch', variable = 'WAT_DEP', unit = sub_basins)     # water levels
+u_set   <- define_output(file = 'rch', variable = 'AV_VEL', unit = sub_basins)      # velocity
+q_set   <- define_output(file = 'rch', variable = 'FLOW_OUT', unit = sub_basins)    # water discharge
+qsf_set <- define_output(file = 'sed', variable = 'FINES_OUT', unit = sub_basins)   # Suspended fine sediments
+qss_set <- define_output(file = 'sed', variable = 'SAND_OUT', unit = sub_basins)    # Suspended sands
+qst_set <- define_output(file = 'sed', variable = 'SED_OUT', unit = sub_basins)     # Total Suspended Sediments
+p_set   <- define_output(file = 'sub', variable = 'PRECIP', unit = sub_basins)      # precipitation
+et_set  <- define_output(file = 'sub', variable = 'ET', unit = sub_basins)          # evapo-transpiration
+pet_set <- define_output(file = 'sub', variable = 'PET', unit = sub_basins)         # potential evapo-tranpiration
+
+### Define the list of the output variables -------------------------------------
+l_output  <- list(h = h_set, u = u_set, q = q_set, qsf = qsf_set, qss = qss_set, qst = qst_set,
+                  p = p_set, et = et_set, pet = pet_set)
+
+```
+
+```{r First Run without any calibration, include=FALSE}
+
+setpar_0 <- c()
+
+sim_0 <- run_swat2012(project_path = project_path, output = l_output,
+                      parameter = setpar_0, output_interval = "d",
+                      start_date = Date_ini, end_date = Date_fin,
+                      years_skip = 2, add_parameter = TRUE, keep_folder = F)
+
+```
+
+```{r Test Run, include=FALSE}
+
+source("setpar_tests.R") # load the corresponding parameter set
+
+sim_tests <- run_swat2012(project_path = project_path, output = l_output,
+                          parameter = setpar_tests, output_interval = "d",
+                          start_date = Date_ini, end_date = Date_fin,
+                          keep_folder = F, years_skip = 2)
+
+```
+
+```{r Best calibration, include=FALSE}
+
+source("setpar_bestcal.R")
+
+sim_bestcal <- run_swat2012(project_path = project_path, output = l_output,
+                            parameter = setpar_bestcal, output_interval = "d",
+                            start_date = Date_ini, end_date = Date_fin,
+                            keep_folder = F, years_skip = 2)
+                             
+
+```
+
+```{r Parallel processing, include=FALSE}
+
+n <- 100 # Number of runs
+
+source("setpar_paral_test.R")
+
+sim_paral_test <- run_swat2012(project_path = project_path, output = l_output,
+                               parameter = setpar_paral_test, output_interval = "d",
+                               start_date = Date_ini, end_date = Date_fin,
+                               years_skip = 2, n_thread = 8)
+
+```
+
+```{r Print parallel processing results}
+# Choose run to print
+run = 2
+
+# Choose parameters to print:
+listparam = c("CH_S2_sub21", "CH_N2_sub21", "CHD_sub21", "CH_W2_sub21", "CNFP_sub21")
+
+
+for (i in 1:length(listparam))
+{ if(i == 1) {print(paste0("Run ", run))}
+  
+  val = eval(parse(text = paste0("sim_paral_test[['parameter']][['values']]$", listparam[i], '[', run, ']')))
+  print( paste0(listparam[i], " = ", val) )
+  
+}
+
+```
+
+```{r Export simulations to excel, include = FALSE}
+# If you want to export directly in excel files 
+      
+# Example with Subbasin 21:
+
+  excel_file_path <- "Results_21.xlsx"
+
+  df_export <- data.frame(sim_bestcal$simulation$h_21$date,
+                          sim_bestcal$simulation$h_21$run_1,
+                          sim_bestcal$simulation$u_21$run_1,
+                          sim_bestcal$simulation$q_21$run_1,
+                          sim_bestcal$simulation$qss_21$run_1)
+
+  write_xlsx(df_export, excel_file_path)  
+  
+
+```
+
+```{r Display results @ station XXX, message=FALSE, warning=FALSE, include=FALSE}
+
+station_name = "XXX"          # Name of the station (used for graph titles)
+code_station = "STATION_NAME" # Station code as listed in station_obs.xlsx (observation file)
+n_sub = 21                    # Subbasin number associated with the station
+sim_name = "sim_tests"        # Name of the simulation to use in interannual graphs and the rating curve
+
+# Observations
+Obs_template = eval(parse(text = paste0("Obs_", code_station, "_template")))
+obs_h <- data.frame(Obs_template$Date, Obs_template$h_obs)
+obs_u <- data.frame(Obs_template$Date, Obs_template$u_obs)
+obs_Q <- data.frame(Obs_template$Date, Obs_template$Q_obs)
+obs_Qss <- data.frame(Obs_template$Date, Obs_template$Qss_obs)
+
+# Gaugings (punctual measurements)
+gaug_h <- data.frame(Obs_template$Date_gauging, Obs_template$h_gauging)
+gaug_u <- data.frame(Obs_template$Date_gauging, Obs_template$u_gauging)
+gaug_Q <- data.frame(Obs_template$Date_gauging, Obs_template$Q_gauging)
+gaug_Qss <- data.frame(Obs_template$Date_gauging, Obs_template$Qss_gauging)
+
+# Display time-series results
+Graphstation(station_name,"h", obs_h, gaug_h,
+             eval(parse(text = paste0("sim_0$simulation$h_", n_sub))),
+             eval(parse(text = paste0("sim_tests$simulation$h_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$h_", n_sub))),
+             eval(parse(text = paste0("sim_paral_test$simulation$h_", n_sub))) )
+
+Graphstation(station_name,"u", obs_u, gaug_u,
+             eval(parse(text = paste0("sim_0$simulation$u_", n_sub))),
+             eval(parse(text = paste0("sim_tests$simulation$u_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$u_", n_sub))),
+             eval(parse(text = paste0("sim_paral_test$simulation$u_", n_sub))) )
+
+Graphstation(station_name,"Q", obs_Q, gaug_Q,
+             eval(parse(text = paste0("sim_0$simulation$q_", n_sub))), 
+             eval(parse(text = paste0("sim_tests$simulation$q_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$q_", n_sub))),
+             eval(parse(text = paste0("sim_paral_test$simulation$q_", n_sub))) )
+
+Graphstation(station_name,"Qss", obs_Qss, gaug_Qss,
+             eval(parse(text = paste0("sim_0$simulation$qss_", n_sub))),
+             eval(parse(text = paste0("sim_tests$simulation$qss_", n_sub))),
+             eval(parse(text = paste0("sim_bestcal$simulation$qss_", n_sub))),
+             eval(parse(text = paste0("sim_paral_test$simulation$qss_", n_sub))) )
+
+# Display inter-annual results
+variablename <- "h" 
+obs <- data.frame(Obs_template$Date, Obs_template$h_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+ 
+variablename <- "u"
+obs <- data.frame(Obs_template$Date, Obs_template$u_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$u_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$u_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+ 
+variablename <- "Q"
+obs <- data.frame(Obs_template$Date, Obs_template$Q_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$q_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$q_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+
+variablename <- "Qss"
+obs <- data.frame(Obs_template$Date, Obs_template$Qss_obs)
+sim <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$qss_", n_sub)))$date,
+                  eval(parse(text = paste0(sim_name, "$simulation$qss_", n_sub)))$run_1 )
+
+Plot_interannual(station_name, variablename, obs, qsim_test = sim, "01-09")
+
+# Rating curves
+gaug_hQ <- data.frame(Obs_template$h_gauging, Obs_template$Q_gauging)
+obs_hQ  <- data.frame(Obs_template$h_obs, Obs_template$Q_obs)
+sim_hQ  <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$run_1,
+                      eval(parse(text = paste0(sim_name, "$simulation$q_", n_sub)))$run_1 )
+
+gaug_hu <- data.frame(Obs_template$h_gauging, Obs_template$u_gauging)
+obs_hu  <- data.frame(Obs_template$h_obs, Obs_template$u_obs)
+sim_hu  <- data.frame(eval(parse(text = paste0(sim_name, "$simulation$h_", n_sub)))$run_1,
+                      eval(parse(text = paste0(sim_name, "$simulation$u_", n_sub)))$run_1 )
+
+
+Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
+                              "h","u",gaug_hu, obs_yx_2 = obs_hu, sim_hu)
+
+```
+
+```{r Sensitivity Analysis - Morris Method, include = FALSE}
+
+
+```
+
+```{r Sensitivity Analysis - Sobol Method Part-1, include = FALSE}
+
+
+```
+
+```{r Sensitivity Analysis - Sobol Method Part-2, include = FALSE}
+
+
+```
+
+```{r Plot Sobol Results}
+
+
+```
+
+

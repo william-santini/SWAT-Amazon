@@ -1,0 +1,47 @@
+hdwnstrm.TXT
+Purpose:
+Defines the water levels at the downstream station, which serve as boundary conditions for the Diffusive Wave model.
+This is required to calculate the energy slope (Sf) in the last reach using the formula:
+Sf = Sb + Sw,
+where:
+- Sb: bed slope
+- Sw: water surface slope (derived from water levels)
+
+Format (in Excel before saving):
+- 1st line: Date (in yyyymmdd format)
+- Subsequent lines: Water level values for each corresponding date
+
+Instructions for Saving (in Excel):
+1. Column A:
+   - Cell A1: Enter the date in yyyymmdd format
+   - Cells A2 to An: Enter the corresponding water level values
+2. Ensure there are no merged cells or additional formatting
+3. Save the file using:
+   File → Save As → "Text (Tab delimited) (*.txt)"
+
+-------------------------------------------------------------
+
+Qsf_forcing.prn (or Qss_forcing.prn)
+Purpose:
+Used to force Qsf or Qss values at the output of a reach, for model simulations.
+
+Format (in Excel before saving):
+- Each reach output or gauging station = one column
+- Separate each reach output with an empty column
+  Example: reach 1 – empty – reach 2 – empty – …
+
+Row Structure:
+1. 1st row: Subbasin number(s)
+2. 2nd row: Date of the first entry in the time series (yyyymmdd)
+3. 3rd row: Forcing flag:
+   - 0 = Forcing disabled
+   - 1 = Forcing enabled
+   (This flag allows toggling forcing on/off and testing different series for the same point.)
+4. From row 4 onwards: Daily discharge values corresponding to the dates
+
+Instructions for Saving (in Excel):
+1. Ensure that each column represents one reach output or gauging station, with empty columns separating each.
+2. Save the file as .PRN using:
+   File → Save As → "Formatted Text (Space delimited) (*.prn)"
+
+						   
