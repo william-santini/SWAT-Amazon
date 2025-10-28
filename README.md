@@ -1,6 +1,5 @@
 # SWAT-Amazon
-
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwilliamsantini&count_bg=%23008ecc&title_bg=%23000000&icon=github.svg&icon_color=%23FFFFFF&title=visits&edge_flat=false)](https://hits.seeyoufarm.com)
+![Profile views](https://komarev.com/ghpvc/?username=williamsantini&label=Profile%20views&color=0e75b6&style=flat)
 
 
 `SWAT-Amazon` is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., submitted)]() 
