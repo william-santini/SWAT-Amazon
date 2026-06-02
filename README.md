@@ -449,7 +449,7 @@ Santini, W., Camenen, B., Le Coz, J., Vauchel, P., Guyot, J.-L., Lavado, W., Car
 
 Santini, W.: Caractérisation de la dynamique hydro-sédimentaire du bassin de l’Ucayali (Pérou), par une approche intégrant réseau de mesures, télédétection et modélisation hydrologique, PhD thesis, Université Toulouse III - Paul Sabatier, Toulouse, France, 2020.
 
-Santini, W., Delort-Ylla, A., Martinez, J.M., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., & Molina-Carpio, J.: Long-term hydro-sediment dynamics of the Ucayali River (Amazon Basin) revealed through combined observations, remote sensing, and SWAT-Amazon modelling. Submitted.
+Santini, W., Delort-Ylla, A., Lavado, W., Camenen, B., Le Coz, J., Roussillon, J., Pérez-Arévalo, J.J., Molina-Carpio, J. & Martinez, J.M.: Long-term hydro-sediment dynamics of the Ucayali River (Amazon Basin) revealed through combined observations, remote sensing, and SWAT-Amazon modelling, 30(11), 3367-3397, https://doi.org/10.5194/hess-30-3367-2026, 2026.
 
 
 
