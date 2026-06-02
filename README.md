@@ -2,7 +2,7 @@
 ![Views](https://komarev.com/ghpvc/?username=williamsantini&label=Views&color=0e75b6&style=flat)
 
 
-`SWAT-Amazon` is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2026](https://hess.copernicus.org/articles/30/3367/2026/)).
+`SWAT-Amazon` is a regionally adapted version of the [SWAT2012](https://swat.tamu.edu/) hydrological model, developed to improve the representation of water and sediment routing processes in the Amazon Basin and other large-scale river basins. [(Santini, 2020;](http://dx.doi.org/10.13140/RG.2.2.32547.60964) [Santini et al., 2026)](https://hess.copernicus.org/articles/30/3367/2026/).
 This modeling framework consists of a **Fortran-based executable (SWAT-Amazon.exe)**, derived from the standard SWAT2012 code, and an **R Notebook (Run-SWAT-Amazon.Rmd)** designed to support the entire modeling workflow. 
 This notebook enable model run, simulation analysis, interactive result visualization, as well as sensitivity analysis and calibration procedures, with the [SWATrunR](https://github.com/chrisschuerz/SWATrunR?tab=readme-ov-file) package [(Schürz et al., 2019)](https://zenodo.org/records/6517027).
 
