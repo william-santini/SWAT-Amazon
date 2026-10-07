@@ -10,7 +10,7 @@ output:
 ```{r Credits, echo=TRUE}
 
 # -------------------------------------------------------------------
-# SWAT-Amazon R Notebook
+# Run-SWAT-Amazon R Markdown Notebook
 # Authors: William Santini & Alexandre Delort-Ylla (IRD)
 # Version: August 2024
 # Description:
@@ -451,5 +451,3 @@ Plot_calib_curve(station_name,"h","Q",gaug_hQ, obs_yx_1 = obs_hQ , sim_hQ,
 
 
 ```
-
-
